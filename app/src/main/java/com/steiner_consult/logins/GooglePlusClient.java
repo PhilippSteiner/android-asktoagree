@@ -30,7 +30,7 @@ import java.io.IOException;
  */
 public class GooglePlusClient implements ConnectionCallbacks, OnConnectionFailedListener{
 
-    private static String TAG = "NewGoogleClient";
+    private static String TAG = "GooglePlusClient";
 
     /* Track whether the sign-in button has been clicked so that we know to resolve
  * all issues preventing sign-in without waiting.
@@ -135,7 +135,7 @@ public class GooglePlusClient implements ConnectionCallbacks, OnConnectionFailed
         person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
         Toast.makeText(loginActivity, "User " + person.getDisplayName() + " is connected!", Toast.LENGTH_LONG).show();
         loginActivity.updateView(AppConfig.LOGGED_IN);
-        new RetrieveGPlusAccessTokenTask().execute();
+        //new RetrieveGPlusAccessTokenTask().execute(); // TODO: Check if we need the Token for offline access to the Google+ API
     }
 
     @Override
@@ -200,6 +200,7 @@ public class GooglePlusClient implements ConnectionCallbacks, OnConnectionFailed
     }
 
 
+    /*
     private class RetrieveGPlusAccessTokenTask extends AsyncTask<Void, Void, String> {
 
         @Override
@@ -252,6 +253,8 @@ public class GooglePlusClient implements ConnectionCallbacks, OnConnectionFailed
             Log.d(TAG, "Token or Result: " + token);
         }
     }
+
+    */
 
     //TODO: Remove old code
 

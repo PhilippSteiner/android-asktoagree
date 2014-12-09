@@ -5,4 +5,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    //Google+
+    <string name="gplus_sign_in_button_name">Log in with G+</string>
+    <string name="gplus_signed_in_as_text">Signed in as \'%s\' \nLog out</string>
+
 </resources>
