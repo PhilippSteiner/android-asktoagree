@@ -1,4 +1,4 @@
-package com.steiner_consult.android_asktoagree;
+package com.steiner_consult.asktoagree;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

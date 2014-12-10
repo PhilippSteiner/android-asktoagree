@@ -1,4 +1,4 @@
-package com.steiner_consult.android_asktoagree;
+package com.steiner_consult.asktoagree;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;

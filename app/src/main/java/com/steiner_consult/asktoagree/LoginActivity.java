@@ -1,4 +1,4 @@
-package com.steiner_consult.android_asktoagree;
+package com.steiner_consult.asktoagree;
 
 import android.app.Activity;
 
@@ -7,9 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.facebook.AppEventsLogger;
+import com.facebook.widget.LoginButton;
 import com.google.android.gms.common.SignInButton;
 import com.steiner_consult.Utils.AppConfig;
+import com.steiner_consult.logins.FacebookClient;
 import com.steiner_consult.logins.GooglePlusClient;
+
+import java.util.Arrays;
 
 /**
  * Created by Philipp on 09.12.14.
@@ -19,11 +24,18 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private GooglePlusClient googlePlusClient;
     private SignInButton googleSignInButton, googleSignOutButton;
 
+    private FacebookClient facebookClient;
+    private LoginButton facebookLoginButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        facebookClient = new FacebookClient(this, savedInstanceState);
+        facebookLoginButton = (LoginButton) findViewById(R.id.authButton);
+        facebookLoginButton.setReadPermissions(Arrays.asList("public_profile"));
 
 
         googlePlusClient = new GooglePlusClient(this);
@@ -54,10 +66,40 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        facebookClient.onResume();
+        // Logs 'install' and 'app activate' App Events.
+        AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        facebookClient.onPause();
+
+        // Logs 'app deactivate' App Event.
+        AppEventsLogger.deactivateApp(this);
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        facebookClient.onActivityResult(requestCode, resultCode, data);
         googlePlusClient.onActivityResult(requestCode, resultCode);
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        facebookClient.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        facebookClient.onDestroy();
     }
 
     public void updateView(int loginStatus) {

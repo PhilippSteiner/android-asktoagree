@@ -9,4 +9,8 @@
     <string name="gplus_sign_in_button_name">Log in with G+</string>
     <string name="gplus_signed_in_as_text">Signed in as \'%s\' \nLog out</string>
 
+    //Facebook
+    <string name="APPID">765876013479503</string>
+    <string name="title_facebook_login">Facebook Login</string>
+
 </resources>

@@ -1,18 +1,12 @@
 package com.steiner_consult.logins;
 
 import android.content.IntentSender;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.GoogleAuthException;
-import com.google.android.gms.auth.GoogleAuthUtil;
-import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.*;
 import com.google.android.gms.common.api.ResultCallback;
@@ -20,10 +14,8 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 import com.steiner_consult.Utils.AppConfig;
-import com.steiner_consult.android_asktoagree.LoginActivity;
-import com.steiner_consult.android_asktoagree.R;
-
-import java.io.IOException;
+import com.steiner_consult.asktoagree.LoginActivity;
+import com.steiner_consult.asktoagree.R;
 
 /**
  * Created by Philipp on 09.12.14.
