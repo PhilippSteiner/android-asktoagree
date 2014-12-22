@@ -3,9 +3,10 @@ package com.steiner_consult.models;
 /**
  * Created by Philipp on 16.12.14.
  */
-public class User {
+public class AppUser {
 
     private int id;
+    private String username;
     private String email;
     private String password;
     private String firstname;
@@ -17,6 +18,14 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {

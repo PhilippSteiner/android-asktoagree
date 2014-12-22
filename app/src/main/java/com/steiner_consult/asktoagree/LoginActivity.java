@@ -5,12 +5,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.facebook.AppEventsLogger;
 import com.facebook.widget.LoginButton;
 import com.google.android.gms.common.SignInButton;
 import com.steiner_consult.Utils.AppConfig;
+import com.steiner_consult.asynctasks.UserRegisterWorker;
 import com.steiner_consult.logins.FacebookClient;
 import com.steiner_consult.logins.GooglePlusClient;
 
@@ -19,19 +21,24 @@ import java.util.Arrays;
 /**
  * Created by Philipp on 09.12.14.
  */
-public class LoginActivity extends Activity implements View.OnClickListener {
+public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
     private GooglePlusClient googlePlusClient;
     private SignInButton googleSignInButton, googleSignOutButton;
 
     private FacebookClient facebookClient;
     private LoginButton facebookLoginButton;
+    private Button createUserButton;
+    private UserRegisterWorker userRegisterWorker;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        createUserButton = (Button) findViewById(R.id.login_button_createAccount);
+        createUserButton.setOnClickListener(this);
 
         facebookClient = new FacebookClient(this, savedInstanceState);
         facebookLoginButton = (LoginButton) findViewById(R.id.authButton);
@@ -124,6 +131,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        if(v.getId() == R.id.login_button_createAccount) {
+            createAccount();
+        }
         googlePlusClient.onClick(v);
     }
 
@@ -138,6 +148,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
             }
         }
+    }
+
+    private void createAccount() {
+        userRegisterWorker = new UserRegisterWorker(this);
+        userRegisterWorker.createUser();
+
     }
 
 

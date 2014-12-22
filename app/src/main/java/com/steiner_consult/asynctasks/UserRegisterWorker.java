@@ -1,13 +1,16 @@
 package com.steiner_consult.asynctasks;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.steiner_consult.asktoagree.BaseActivity;
+import com.steiner_consult.models.AppUser;
 import com.steiner_consult.models.RegisterResponse;
-import com.steiner_consult.models.User;
 
 
-import org.apache.http.HttpRequest;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -22,6 +25,12 @@ import org.springframework.web.client.RestTemplate;
 public class UserRegisterWorker {
 
     private static final String TAG = "UserRegisterWorker";
+    private BaseActivity baseActivity;
+
+
+    public UserRegisterWorker(BaseActivity activity) {
+        this.baseActivity = activity;
+    }
 
 
     public void createUser() {
@@ -31,17 +40,21 @@ public class UserRegisterWorker {
 
     private class UserRegisterAsyncTask extends AsyncTask<Void, Void, ResponseEntity<RegisterResponse>> {
 
-        User user = new User();
-        String url = "";
+        AppUser appUser = new AppUser();
+        String url = "https://asktoagree.herokuapp.com/user/";
+
+
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            baseActivity.getProgressDialog().show();
 
-            user.setEmail("philipp.steiner@snw.at");
-            user.setFirstname("Philipp");
-            user.setLastname("Steiner");
-            user.setPassword("password");
+            appUser.setEmail("philipp.steiner@snw.at");
+            appUser.setFirstname("Philipp");
+            appUser.setLastname("Steiner");
+            appUser.setPassword("password");
+            appUser.setUsername("Pippo");
 
         }
 
@@ -50,23 +63,27 @@ public class UserRegisterWorker {
 
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setContentType(new MediaType("application", "json"));
-            HttpEntity<User> requestEntity = new HttpEntity<User>(user, httpHeaders);
+            HttpEntity<AppUser> requestEntity = new HttpEntity<AppUser>(appUser, httpHeaders);
 
             RestTemplate restTemplate = new RestTemplate();
-            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            MappingJackson2HttpMessageConverter jacksonMapper = new MappingJackson2HttpMessageConverter();
+            jacksonMapper.getObjectMapper().setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+            restTemplate.getMessageConverters().add(jacksonMapper);
+
+
 
             ResponseEntity<RegisterResponse> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, RegisterResponse.class);
 
             RegisterResponse registerResponse = responseEntity.getBody();
 
-            Log.d(TAG, "User id: " + registerResponse.getId());
+            Log.d(TAG, "User id: " + registerResponse.getId() + " Status: " + registerResponse.getStatus());
 
             return responseEntity;
         }
 
         @Override
         protected void onPostExecute(ResponseEntity<RegisterResponse> registerResponse) {
-
+            baseActivity.getProgressDialog().cancel();
 
         }
     }

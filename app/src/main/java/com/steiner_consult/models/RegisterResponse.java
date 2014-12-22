@@ -6,6 +6,7 @@ package com.steiner_consult.models;
 public class RegisterResponse {
 
     private int id;
+    private String status;
 
     public int getId() {
         return id;
@@ -13,5 +14,13 @@ public class RegisterResponse {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
