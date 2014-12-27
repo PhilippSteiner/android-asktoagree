@@ -42,6 +42,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         facebookClient = new FacebookClient(this, savedInstanceState);
         facebookLoginButton = (LoginButton) findViewById(R.id.authButton);
+        //facebookLoginButton.setPadding(0, 0, 0, 0);
+        facebookLoginButton.setBackgroundResource(R.drawable.facebook_button_blue);
         facebookLoginButton.setReadPermissions(Arrays.asList("public_profile"));
 
 

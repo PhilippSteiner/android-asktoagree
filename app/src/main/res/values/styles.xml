@@ -5,4 +5,9 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="TitleText">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
 </resources>
