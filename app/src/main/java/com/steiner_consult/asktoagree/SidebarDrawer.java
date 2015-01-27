@@ -36,7 +36,7 @@ public class SidebarDrawer {
         sidebarAdapter = new SidebarAdapter(baseActivity, getSidebarItemList());
         drawerList.setAdapter(sidebarAdapter);
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
-        drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        //drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         drawerToggle = new ActionBarDrawerToggle(
                 baseActivity,          /* host Activity */
                 drawerLayout,         /* DrawerLayout object */
@@ -57,8 +57,6 @@ public class SidebarDrawer {
 
         drawerLayout.setDrawerListener(drawerToggle);
     }
-
-
 
     private List<SidebarItem> getSidebarItemList() {
         List<SidebarItem> sidebarItemList = new ArrayList<>();
@@ -84,6 +82,14 @@ public class SidebarDrawer {
 
     private void setTitle(String name) {
         baseActivity.getSupportActionBar().setTitle(name);
+    }
+
+    public ActionBarDrawerToggle getDrawerToggle() {
+        return drawerToggle;
+    }
+
+    public DrawerLayout getDrawerLayout() {
+        return drawerLayout;
     }
 
 }
