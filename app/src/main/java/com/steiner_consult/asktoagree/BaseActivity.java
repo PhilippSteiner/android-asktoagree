@@ -1,12 +1,12 @@
 package com.steiner_consult.asktoagree;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
+import android.support.v7.app.ActionBarActivity;
 
 /**
  * Created by Philipp on 22.12.14.
  */
-public class BaseActivity extends Activity {
+public class BaseActivity extends ActionBarActivity {
 
     private ProgressDialog progressDialog;
 

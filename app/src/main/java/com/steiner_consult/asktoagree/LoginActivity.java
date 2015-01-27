@@ -50,6 +50,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         googlePlusClient = new GooglePlusClient(this);
 
         googleSignInButton = (SignInButton) findViewById(R.id.gplus_btn_sign_in);
+        googleSignInButton.setBackgroundResource(0);
+        googleSignInButton.setPadding(0,0,0,0);
         googleSignOutButton = (SignInButton) findViewById(R.id.gplus_btn_sign_out);
 
 

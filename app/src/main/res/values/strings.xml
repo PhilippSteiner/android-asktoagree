@@ -5,6 +5,10 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    //MainActivity:NavigationDrawer
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
     //Google+
     <string name="gplus_sign_in_button_name">Log in with G+</string>
     <string name="gplus_signed_in_as_text">Signed in as \'%s\' \nLog out</string>
