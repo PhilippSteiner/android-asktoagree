@@ -1,4 +1,4 @@
-package com.steiner_consult.Utils;
+package com.steiner_consult.utilities;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

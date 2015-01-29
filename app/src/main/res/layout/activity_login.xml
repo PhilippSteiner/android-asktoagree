@@ -4,86 +4,9 @@
     android:layout_height="match_parent"
     android:background="@color/background_green">
 
-
-    <LinearLayout
-        android:id="@+id/login_layout_account"
+    <FrameLayout
+        android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_margin="@dimen/activity_margin"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/login_label_login"
-            style="@style/TitleText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/login_label_login"
-            android:gravity="center" />
-
-        <EditText
-            android:layout_marginTop="20dp"
-            android:id="@+id/login_edittext_firstname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/login_edittext_hint_firstname"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/login_edittext_lasttname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/login_edittext_hint_lastname"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/login_edittext_username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/login_edittext_hint_username"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/login_edittext_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/login_edittext_hint_email"
-            android:inputType="textEmailAddress" />
-
-        <EditText
-            android:id="@+id/login_edittext_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/login_edittext_hint_password"
-            android:inputType="textPassword" />
-
-        <Button
-            android:id="@+id/login_button_createAccount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/login_button_createAccount"
-            android:background="@color/button_yellow"/>
-
-        <com.facebook.widget.LoginButton
-            android:id="@+id/authButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"/>
-
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/gplus_btn_sign_in"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/gplus_btn_sign_out"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
-
-    </LinearLayout>
-
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>

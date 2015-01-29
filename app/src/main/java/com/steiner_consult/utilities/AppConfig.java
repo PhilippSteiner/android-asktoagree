@@ -1,4 +1,4 @@
-package com.steiner_consult.Utils;
+package com.steiner_consult.utilities;
 
 /**
  * Created by Philipp on 09.12.14.

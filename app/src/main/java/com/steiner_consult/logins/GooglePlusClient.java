@@ -13,7 +13,8 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
-import com.steiner_consult.Utils.AppConfig;
+import com.steiner_consult.fragments.LoginFragment;
+import com.steiner_consult.utilities.AppConfig;
 import com.steiner_consult.asktoagree.LoginActivity;
 import com.steiner_consult.asktoagree.R;
 
@@ -47,9 +48,11 @@ public class GooglePlusClient implements ConnectionCallbacks, OnConnectionFailed
     private ConnectionResult mConnectionResult;
     public Person person;
     private LoginActivity loginActivity;
+    private LoginFragment loginFragment;
 
-    public GooglePlusClient(LoginActivity activity) {
-        this.loginActivity = activity;
+    public GooglePlusClient(LoginFragment loginFragment) {
+        this.loginFragment = loginFragment;
+        this.loginActivity = (LoginActivity) loginFragment.getActivity();
         buildGoogleAPIClient();
 
     }
@@ -112,7 +115,7 @@ public class GooglePlusClient implements ConnectionCallbacks, OnConnectionFailed
 
                         });
                 mGoogleApiClient.disconnect();
-                loginActivity.updateView(AppConfig.LOGGED_OUT);
+                loginFragment.updateView(AppConfig.LOGGED_OUT);
                 Toast.makeText(loginActivity, "User is logged out!", Toast.LENGTH_LONG).show();
                 mGoogleApiClient.connect();
             }
@@ -126,14 +129,14 @@ public class GooglePlusClient implements ConnectionCallbacks, OnConnectionFailed
         mSignInClicked = false;
         person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
         Toast.makeText(loginActivity, "User " + person.getDisplayName() + " is connected!", Toast.LENGTH_LONG).show();
-        loginActivity.updateView(AppConfig.LOGGED_IN);
+        loginFragment.updateView(AppConfig.LOGGED_IN);
         //new RetrieveGPlusAccessTokenTask().execute(); // TODO: Check if we need the Token for offline access to the Google+ API
     }
 
     @Override
     public void onConnectionSuspended(int i) {
         mGoogleApiClient.connect();
-        loginActivity.updateView(AppConfig.LOGGED_OUT);
+        loginFragment.updateView(AppConfig.LOGGED_OUT);
     }
 
 

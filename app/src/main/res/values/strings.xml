@@ -24,7 +24,10 @@
     <string name="login_label_login">Login</string>
     <string name="login_label_email">E-Mail:</string>
     <string name="login_label_password">Password:</string>
-    <string name="login_button_createAccount">Create Account</string>
+
+    <string name="login_button_registerAccount">Sign up</string>
+    <string name="register_button_createAccount">Create Account</string>
+    <string name="register_label_register">Register</string>
     //Hints
     <string name="login_edittext_hint_email">E-mail</string>
     <string name="login_edittext_hint_firstname">Firstname</string>
