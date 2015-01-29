@@ -1,6 +1,8 @@
 package com.steiner_consult.asktoagree;
 
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.steiner_consult.adapters.SidebarAdapter;
+import com.steiner_consult.fragments.MyPrayerPagerFragment;
 import com.steiner_consult.models.SidebarItem;
 
 import java.util.ArrayList;
@@ -60,9 +63,9 @@ public class SidebarDrawer {
 
     private List<SidebarItem> getSidebarItemList() {
         List<SidebarItem> sidebarItemList = new ArrayList<>();
-        sidebarItemList.add(new SidebarItem("Top Prayers"));
-        sidebarItemList.add(new SidebarItem("My Prayers"));
-        sidebarItemList.add(new SidebarItem("Invite Brothers and Sisters"));
+        sidebarItemList.add(new SidebarItem("Top Prayers", R.drawable.ic_drawer_top));
+        sidebarItemList.add(new SidebarItem("My Prayers", R.drawable.ic_drawer_my));
+        sidebarItemList.add(new SidebarItem("Invite Brothers and Sisters", R.drawable.ic_drawer_invite));
         return sidebarItemList;
     }
 
@@ -75,6 +78,22 @@ public class SidebarDrawer {
 
     private void selectItem(int position) {
         SidebarItem sidebarItem = sidebarAdapter.getItem(position);
+        Fragment fragment;
+
+        switch (position) {
+            case 0: fragment = MyPrayerPagerFragment.newInstance();
+                break;
+            case 1: fragment = MyPrayerPagerFragment.newInstance();
+                break;
+            default: fragment = MyPrayerPagerFragment.newInstance();
+                break;
+        }
+
+        FragmentManager fragmentManager = baseActivity.getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, fragment)
+                .commit();
+
         drawerList.setItemChecked(position, true);
         drawerLayout.closeDrawer(drawerList);
         setTitle(sidebarItem.getName());

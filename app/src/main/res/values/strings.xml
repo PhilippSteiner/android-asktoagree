@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">android-asktoagree</string>
+    <string name="app_name">AskToAgree</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    //ActionBar
+    <string name="action_createprayer">Create Prayer</string>
 
     //MainActivity:NavigationDrawer
     <string name="drawer_open">Open navigation drawer</string>

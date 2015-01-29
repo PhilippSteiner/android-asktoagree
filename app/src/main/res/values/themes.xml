@@ -12,9 +12,9 @@
 <!-- ActionBar styles -->
 <style name="AskToAgreeActionBar"
     parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-    <item name="android:background">@color/background_green</item>
+    <item name="android:background">@color/background_actionbar</item>
 
     <!-- Support library compatibility -->
-    <item name="background">@color/background_green</item>
+    <item name="background">@color/background_actionbar</item>
 </style>
 </resources>
