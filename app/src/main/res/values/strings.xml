@@ -12,15 +12,16 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
-    //Google+
+    <!--Google+-->
     <string name="gplus_sign_in_button_name">Log in with G+</string>
     <string name="gplus_signed_in_as_text">Signed in as \'%s\' \nLog out</string>
 
-    //Facebook
+    <!--Facebook-->
     <string name="APPID">765876013479503</string>
     <string name="title_facebook_login">Facebook Login</string>
 
-    //AskToAgree Login/Registration
+    <!--Login/Registration-->
+
     <string name="login_label_login">Login</string>
     <string name="login_label_email">E-Mail:</string>
     <string name="login_label_password">Password:</string>
@@ -28,12 +29,15 @@
     <string name="login_button_registerAccount">Sign up</string>
     <string name="register_button_createAccount">Create Account</string>
     <string name="register_label_register">Register</string>
-    //Hints
     <string name="login_edittext_hint_email">E-mail</string>
     <string name="login_edittext_hint_firstname">Firstname</string>
     <string name="login_edittext_hint_lastname">Lastname</string>
     <string name="login_edittext_hint_password">Password</string>
     <string name="login_edittext_hint_username">Username</string>
 
+    <!--MyPrayer-->
+    <string name="myprayer_create_hint_title">Title</string>
+    <string name="myprayer_create_hint_text">Prayer</string>
+    <string name="myprayer_create_button_text">Create Prayer</string>
 
 </resources>

@@ -11,7 +11,7 @@ import android.widget.Button;
 import com.steiner_consult.asktoagree.LoginActivity;
 
 import com.steiner_consult.asktoagree.R;
-import com.steiner_consult.asynctasks.UserRegisterWorker;
+import com.steiner_consult.workers.UserRegisterWorker;
 
 /**
  * Created by Philipp on 29.01.15.

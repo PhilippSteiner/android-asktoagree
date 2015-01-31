@@ -1,8 +1,7 @@
-package com.steiner_consult.asynctasks;
+package com.steiner_consult.workers;
 
 
 
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 

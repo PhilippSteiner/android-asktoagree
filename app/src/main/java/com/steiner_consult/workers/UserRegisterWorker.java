@@ -1,7 +1,5 @@
-package com.steiner_consult.asynctasks;
+package com.steiner_consult.workers;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -24,7 +22,7 @@ import org.springframework.web.client.RestTemplate;
  */
 public class UserRegisterWorker {
 
-    private static final String TAG = "UserRegisterWorker";
+    private final String TAG = this.getClass().getName();
     private BaseActivity baseActivity;
 
 
