@@ -24,35 +24,35 @@
 
         <EditText
             android:layout_marginTop="20dp"
-            android:id="@+id/login_edittext_firstname"
+            android:id="@+id/register_edittext_firstname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/login_edittext_hint_firstname"
             android:inputType="text" />
 
         <EditText
-            android:id="@+id/login_edittext_lasttname"
+            android:id="@+id/register_edittext_lasttname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/login_edittext_hint_lastname"
             android:inputType="text" />
 
         <EditText
-            android:id="@+id/login_edittext_username"
+            android:id="@+id/register_edittext_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/login_edittext_hint_username"
             android:inputType="text" />
 
         <EditText
-            android:id="@+id/login_edittext_email"
+            android:id="@+id/register_edittext_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/login_edittext_hint_email"
             android:inputType="textEmailAddress" />
 
         <EditText
-            android:id="@+id/login_edittext_password"
+            android:id="@+id/register_edittext_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/login_edittext_hint_password"

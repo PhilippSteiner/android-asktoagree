@@ -1,24 +1,19 @@
 package com.steiner_consult.models;
 
+import com.steiner_consult.utilities.AppConfig;
+
 /**
  * Created by Philipp on 16.12.14.
  */
-public class AppUser {
+public class RegisterRequest {
 
-    private int id;
     private String username;
     private String email;
     private String password;
     private String firstname;
     private String lastname;
+    private String clienttoken;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
@@ -58,5 +53,13 @@ public class AppUser {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public String getClienttoken() {
+        return clienttoken;
+    }
+
+    public void setClienttoken(String clienttoken) {
+        this.clienttoken = clienttoken;
     }
 }

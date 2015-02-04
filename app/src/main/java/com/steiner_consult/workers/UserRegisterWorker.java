@@ -5,8 +5,9 @@ import android.util.Log;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.steiner_consult.asktoagree.BaseActivity;
-import com.steiner_consult.models.AppUser;
+import com.steiner_consult.models.RegisterRequest;
 import com.steiner_consult.models.RegisterResponse;
+import com.steiner_consult.utilities.NetworkURL;
 
 
 import org.springframework.http.HttpEntity;
@@ -24,6 +25,7 @@ public class UserRegisterWorker {
 
     private final String TAG = this.getClass().getName();
     private BaseActivity baseActivity;
+    private RegisterRequest registerRequest;
 
 
     public UserRegisterWorker(BaseActivity activity) {
@@ -31,28 +33,22 @@ public class UserRegisterWorker {
     }
 
 
-    public void createUser() {
+    public void createUser(RegisterRequest registerRequest) {
+        this.registerRequest = registerRequest;
         new UserRegisterAsyncTask().execute();
     }
 
+    private RegisterRequest buildRequestData() {
+        return null;
+    }
 
     private class UserRegisterAsyncTask extends AsyncTask<Void, Void, ResponseEntity<RegisterResponse>> {
-
-        AppUser appUser = new AppUser();
-        String url = "https://asktoagree.herokuapp.com/user/";
-
 
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             baseActivity.getProgressDialog().show();
-
-            appUser.setEmail("philipp.steiner@snw.at");
-            appUser.setFirstname("Philipp");
-            appUser.setLastname("Steiner");
-            appUser.setPassword("password");
-            appUser.setUsername("Pippo");
 
         }
 
@@ -61,15 +57,16 @@ public class UserRegisterWorker {
 
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setContentType(new MediaType("application", "json"));
-            HttpEntity<AppUser> requestEntity = new HttpEntity<AppUser>(appUser, httpHeaders);
+            HttpEntity<RegisterRequest> requestEntity = new HttpEntity<RegisterRequest>(registerRequest, httpHeaders);
 
             RestTemplate restTemplate = new RestTemplate();
             MappingJackson2HttpMessageConverter jacksonMapper = new MappingJackson2HttpMessageConverter();
             jacksonMapper.getObjectMapper().setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
             restTemplate.getMessageConverters().add(jacksonMapper);
 
-
-
+            final String url = NetworkURL.REGISTERACCOUNT.getUrl();
+            //final String url = "https://asktoagree.herokuapp.com/account/register/";
+            Log.d(TAG, "PostRequest to: " + url);
             ResponseEntity<RegisterResponse> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, RegisterResponse.class);
 
             RegisterResponse registerResponse = responseEntity.getBody();

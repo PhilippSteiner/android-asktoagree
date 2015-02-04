@@ -1,5 +1,6 @@
 package com.steiner_consult.asktoagree;
 
+import android.content.Intent;
 import android.view.MenuItem;
 
 import com.steiner_consult.fragments.BaseFragment;
@@ -28,6 +29,8 @@ public class OptionsMenuHandler {
                 baseFragment.goToFragment(CreatePrayerFragment.newInstance());
                 return true;
             case R.id.action_settings:
+                Intent intent = new Intent(baseFragment.getActivity().getApplicationContext(), LoginActivity.class);
+                baseFragment.getActivity().startActivity(intent);
                 //TODO: Handle SettingsClick
                 return true;
             default:

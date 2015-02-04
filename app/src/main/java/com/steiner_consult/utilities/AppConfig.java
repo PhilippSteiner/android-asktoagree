@@ -6,6 +6,9 @@ package com.steiner_consult.utilities;
 public class AppConfig {
 
 
+    /* App Settings */
+    public static final String CLIENT_SECRET = "341778420137";
+
     // Google Plus
     public static final String SERVER_CLIENT_ID = "341778420137-qd3us9pvki35bpu6m3iuvs9v9fo10qe0.apps.googleusercontent.com";
     public static final int LOGGED_OUT = 0;
