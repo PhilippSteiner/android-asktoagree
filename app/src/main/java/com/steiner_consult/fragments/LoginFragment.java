@@ -1,5 +1,6 @@
 package com.steiner_consult.fragments;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.facebook.AppEventsLogger;
@@ -18,7 +20,9 @@ import com.steiner_consult.asktoagree.LoginActivity;
 import com.steiner_consult.asktoagree.R;
 import com.steiner_consult.logins.FacebookClient;
 import com.steiner_consult.logins.GooglePlusClient;
+import com.steiner_consult.models.requests.LoginRequest;
 import com.steiner_consult.utilities.AppConfig;
+import com.steiner_consult.workers.LoginWorker;
 
 import java.util.Arrays;
 
@@ -33,9 +37,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private FacebookClient facebookClient;
     private LoginButton facebookLoginButton;
     private Button registerButton;
-
-
-
+    private EditText email, password;
 
     public static LoginFragment newInstance() {
         return new LoginFragment();
@@ -46,6 +48,20 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         View rootView = inflater.inflate(R.layout.fragment_layout_login, container, false);
 
         loginActivity = (LoginActivity) getActivity();
+
+        /* Login */
+        email = (EditText) rootView.findViewById(R.id.login_edittext_email);
+        password = (EditText) rootView.findViewById(R.id.login_edittext_password);
+        Button login = (Button) rootView.findViewById(R.id.login_button_login);
+        login.setOnClickListener(this);
+        TextView forgotpassword = (TextView) rootView.findViewById(R.id.login_link_forgotpassword);
+        forgotpassword.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+        forgotpassword.setOnClickListener(this);
+
+
+/* Register */
+
+
 
         registerButton = (Button) rootView.findViewById(R.id.login_button_registerAccount);
         registerButton.setOnClickListener(this);
@@ -141,10 +157,25 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        if(v.getId() == R.id.login_button_login) {
+            loginUser();
+        }
         if(v.getId() == R.id.login_button_registerAccount) {
             goToRegistrationFragment();
         }
+        if(v.getId() == R.id.login_link_forgotpassword) {
+            goToForgotPassword();
+        }
+
         googlePlusClient.onClick(v);
+    }
+
+    private void loginUser() {
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setEmail(email.getText().toString());
+        loginRequest.setPassword(password.getText().toString());
+        LoginWorker loginWorker = new LoginWorker(loginActivity);
+        loginWorker.loginUser(loginRequest);
     }
 
     private void goToRegistrationFragment() {
@@ -153,6 +184,15 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         fragmentManager.beginTransaction()
                 .replace(R.id.content_frame, registrationFragment)
                 .addToBackStack(LoginFragment.class.getName())
+                .commit();
+    }
+
+    private void goToForgotPassword() {
+        ForgotPasswordFragment forgotPasswordFragment = ForgotPasswordFragment.newInstance();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, forgotPasswordFragment)
+                .addToBackStack(ForgotPasswordFragment.class.getName())
                 .commit();
     }
 

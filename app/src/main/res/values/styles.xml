@@ -7,6 +7,10 @@
 
     <style name="TitleText">
         <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="Buttons">
+        <item name="android:background">@color/background_button</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 

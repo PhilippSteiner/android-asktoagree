@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background_green">
-
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/login_layout_account"
@@ -22,13 +20,42 @@
             android:text="@string/login_label_login"
             android:gravity="center" />
 
+        <EditText
+            android:id="@+id/login_edittext_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/login_edittext_hint_password"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/login_edittext_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/login_edittext_hint_email"
+            android:inputType="textEmailAddress" />
+
+        <Button
+            android:id="@+id/login_button_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/login_button_login"
+            style="@style/Buttons"/>
+
+        <TextView
+            android:id="@+id/login_link_forgotpassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login_link_forgotpassword"
+            android:gravity="center"/>
+
         <Button
             android:id="@+id/login_button_registerAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/login_button_registerAccount"
-            android:background="@color/button_yellow"/>
+            style="@style/Buttons"/>
 
         <com.facebook.widget.LoginButton
             android:id="@+id/authButton"

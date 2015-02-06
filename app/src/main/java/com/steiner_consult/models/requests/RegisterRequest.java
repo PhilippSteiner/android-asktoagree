@@ -1,4 +1,4 @@
-package com.steiner_consult.models;
+package com.steiner_consult.models.requests;
 
 import com.steiner_consult.utilities.AppConfig;
 

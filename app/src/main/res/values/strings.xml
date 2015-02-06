@@ -25,15 +25,21 @@
     <string name="login_label_login">Login</string>
     <string name="login_label_email">E-Mail:</string>
     <string name="login_label_password">Password:</string>
+    <string name="login_button_login">Sign in</string>
+    <string name="login_link_forgotpassword">Forgot your password?</string>
 
     <string name="login_button_registerAccount">Sign up</string>
     <string name="register_button_createAccount">Create Account</string>
     <string name="register_label_register">Register</string>
+
     <string name="login_edittext_hint_email">E-mail</string>
     <string name="login_edittext_hint_firstname">Firstname</string>
     <string name="login_edittext_hint_lastname">Lastname</string>
     <string name="login_edittext_hint_password">Password</string>
     <string name="login_edittext_hint_username">Username</string>
+    <!--Forgot Password-->
+    <string name="forgotpassword_button">Restore Password</string>
+    <string name="forgotpassword_text">Please enter your password here and we will restore your password:</string>
 
     <!--MyPrayer-->
     <string name="myprayer_create_hint_title">Title</string>

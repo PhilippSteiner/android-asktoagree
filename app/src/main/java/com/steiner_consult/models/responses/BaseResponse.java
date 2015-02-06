@@ -1,9 +1,9 @@
-package com.steiner_consult.models;
+package com.steiner_consult.models.responses;
 
 /**
- * Created by Philipp on 16.12.14.
+ * Created by Philipp on 05.02.15.
  */
-public class RegisterResponse {
+public class BaseResponse {
 
     private int id;
     private String status;

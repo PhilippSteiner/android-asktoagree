@@ -12,7 +12,7 @@ import android.widget.EditText;
 import com.steiner_consult.asktoagree.LoginActivity;
 
 import com.steiner_consult.asktoagree.R;
-import com.steiner_consult.models.RegisterRequest;
+import com.steiner_consult.models.requests.RegisterRequest;
 import com.steiner_consult.workers.UserRegisterWorker;
 
 /**
