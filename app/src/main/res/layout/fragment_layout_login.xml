@@ -17,62 +17,59 @@
             style="@style/TitleText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/login_label_login"
-            android:gravity="center" />
-
-        <EditText
-            android:id="@+id/login_edittext_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/login_edittext_hint_password"
-            android:inputType="textPassword" />
+            android:gravity="center"
+            android:text="@string/login_label_login" />
 
         <EditText
             android:id="@+id/login_edittext_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top"
             android:hint="@string/login_edittext_hint_email"
             android:inputType="textEmailAddress" />
 
-        <Button
-            android:id="@+id/login_button_login"
+        <EditText
+            android:id="@+id/login_edittext_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/login_button_login"
-            style="@style/Buttons"/>
+            android:layout_marginTop="@dimen/margin_top"
+            android:hint="@string/login_edittext_hint_password"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/login_button_login"
+            style="@style/Buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top"
+            android:text="@string/login_button_signin" />
 
         <TextView
             android:id="@+id/login_link_forgotpassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/login_link_forgotpassword"
-            android:gravity="center"/>
-
-        <Button
-            android:id="@+id/login_button_registerAccount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/login_button_registerAccount"
-            style="@style/Buttons"/>
+            android:layout_marginTop="@dimen/margin_top"
+            android:gravity="center"
+            android:text="@string/login_link_forgotpassword" />
 
         <com.facebook.widget.LoginButton
             android:id="@+id/authButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"/>
+            android:layout_marginTop="30dp" />
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/gplus_btn_sign_in"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:padding="0dp"/>
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/gplus_btn_sign_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="0dp"
             android:visibility="gone" />
 
     </LinearLayout>

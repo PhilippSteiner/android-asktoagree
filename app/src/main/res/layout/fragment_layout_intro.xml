@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/into_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/activity_margin"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/intro_button_signin"
+            style="@style/Buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top"
+            android:text="@string/login_button_signin" />
+
+        <Button
+            android:id="@+id/intro_button_signup"
+            style="@style/Buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/login_button_signup" />
+
+    </LinearLayout>
+
+</RelativeLayout>

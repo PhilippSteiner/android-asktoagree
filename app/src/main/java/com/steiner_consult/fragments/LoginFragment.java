@@ -1,6 +1,7 @@
 package com.steiner_consult.fragments;
 
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -31,12 +32,11 @@ import java.util.Arrays;
  */
 public class LoginFragment extends Fragment implements View.OnClickListener {
 
-    LoginActivity loginActivity;
+    private LoginActivity loginActivity;
     private GooglePlusClient googlePlusClient;
     private SignInButton googleSignInButton, googleSignOutButton;
     private FacebookClient facebookClient;
     private LoginButton facebookLoginButton;
-    private Button registerButton;
     private EditText email, password;
 
     public static LoginFragment newInstance() {
@@ -51,7 +51,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         /* Login */
         email = (EditText) rootView.findViewById(R.id.login_edittext_email);
+        email.setTypeface(Typeface.DEFAULT);
         password = (EditText) rootView.findViewById(R.id.login_edittext_password);
+        password.setTypeface(Typeface.DEFAULT);
         Button login = (Button) rootView.findViewById(R.id.login_button_login);
         login.setOnClickListener(this);
         TextView forgotpassword = (TextView) rootView.findViewById(R.id.login_link_forgotpassword);
@@ -59,12 +61,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         forgotpassword.setOnClickListener(this);
 
 
-/* Register */
-
-
-
-        registerButton = (Button) rootView.findViewById(R.id.login_button_registerAccount);
-        registerButton.setOnClickListener(this);
+        /* Register */
 
         facebookClient = new FacebookClient(getActivity(), savedInstanceState);
         facebookLoginButton = (LoginButton) rootView.findViewById(R.id.authButton);
@@ -77,7 +74,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         googleSignInButton = (SignInButton) rootView.findViewById(R.id.gplus_btn_sign_in);
         googleSignInButton.setBackgroundResource(0);
-        googleSignInButton.setPadding(0,0,0,0);
+        googleSignInButton.setPadding(0, 0, 0, 0);
         googleSignOutButton = (SignInButton) rootView.findViewById(R.id.gplus_btn_sign_out);
 
 
@@ -157,13 +154,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.login_button_login) {
+        if (v.getId() == R.id.login_button_login) {
             loginUser();
         }
-        if(v.getId() == R.id.login_button_registerAccount) {
-            goToRegistrationFragment();
-        }
-        if(v.getId() == R.id.login_link_forgotpassword) {
+        if (v.getId() == R.id.login_link_forgotpassword) {
             goToForgotPassword();
         }
 
@@ -176,15 +170,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         loginRequest.setPassword(password.getText().toString());
         LoginWorker loginWorker = new LoginWorker(loginActivity);
         loginWorker.loginUser(loginRequest);
-    }
-
-    private void goToRegistrationFragment() {
-        RegistrationFragment registrationFragment = RegistrationFragment.newInstance();
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.content_frame, registrationFragment)
-                .addToBackStack(LoginFragment.class.getName())
-                .commit();
     }
 
     private void goToForgotPassword() {
@@ -208,7 +193,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             }
         }
     }
-
 
 
     //TODO: Check for GooglePlayServices
