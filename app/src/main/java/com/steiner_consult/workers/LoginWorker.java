@@ -11,6 +11,7 @@ import com.steiner_consult.utilities.AppConfig;
 import com.steiner_consult.utilities.NetworkURL;
 
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 /**
@@ -43,16 +44,24 @@ public class LoginWorker extends BaseWorker {
 
         @Override
         protected ResponseEntity<LoginResponse> doInBackground(Void... params) {
-            final String url = NetworkURL.REGISTERACCOUNT.getUrl();
-            Log.d(TAG, "PostRequest to: " + url);
-            ResponseEntity<LoginResponse> responseEntity = getRestTemplate().exchange(url, HttpMethod.POST, getRequestEntity(loginRequest), LoginResponse.class);
-            LoginResponse loginResponse = responseEntity.getBody();
-            Log.d(TAG, "User id: " + loginResponse.getId() + " Status: " + loginResponse.getStatus());
-            return responseEntity;
+            try {
+                final String url = NetworkURL.LOGIN.getUrl();
+                Log.d(TAG, "PostRequest to: " + url);
+                ResponseEntity<LoginResponse> responseEntity = getRestTemplate().exchange(url, HttpMethod.POST, getRequestEntity(loginRequest), LoginResponse.class);
+                return responseEntity;
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage(), e);
+            }
+            return null;
         }
 
         @Override
-        protected void onPostExecute(ResponseEntity<LoginResponse> loginResponse) {
+        protected void onPostExecute(ResponseEntity<LoginResponse> responseEntity) {
+
+            LoginResponse loginResponse = responseEntity.getBody();
+            if (responseEntity.getStatusCode() == HttpStatus.OK) {
+                Log.d(TAG, "User id: " + loginResponse.getId() + " Status: " + loginResponse.getStatus());
+            }
             baseActivity.getProgressDialog().cancel();
 
         }

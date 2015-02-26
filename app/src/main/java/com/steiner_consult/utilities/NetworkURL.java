@@ -5,7 +5,8 @@ package com.steiner_consult.utilities;
  */
 public enum NetworkURL {
 
-    REGISTERACCOUNT("account/", "register/", "Register the AppUser");
+    REGISTERACCOUNT("account/", "register/", "Register the AppUser"),
+    LOGIN("account/", "login/", "Login the AppUser");
 
     private String path;
     private String description;
