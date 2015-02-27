@@ -26,4 +26,6 @@ public class AppConfig {
     public static final String EMAIL_USED = "email_used";
     public static final String USER_NOT_EXIST = "user_not_exist";
     public static final String WRONG_PASSWORD = "wrong_password";
+    public static final String ACCOUNT_CREATED = "account_created";
+    public static final String LOGIN_SUCCESS = "login_success";
 }

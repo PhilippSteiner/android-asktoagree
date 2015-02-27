@@ -46,4 +46,10 @@
     <string name="myprayer_create_hint_text">Prayer</string>
     <string name="myprayer_create_button_text">Create Prayer</string>
 
+    <!--Toasts-->
+    <string name="toast_wrong_password">Wrong password, please try again!</string>
+    <string name="toast_user_not_exist">The entered email address is not valid, please try again!</string>
+    <string name="toast_account_created">Registration successful!</string>
+    <string name="toast_login_success">You are now logged in!</string>
+
 </resources>

@@ -5,10 +5,12 @@ package com.steiner_consult.workers;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.deser.Deserializers;
 import com.steiner_consult.asktoagree.BaseActivity;
+import com.steiner_consult.asktoagree.R;
 import com.steiner_consult.utilities.AppConfig;
 
 import org.springframework.http.ContentCodingType;
@@ -30,10 +32,12 @@ public abstract class BaseWorker {
     protected BaseActivity baseActivity;
     protected SharedPreferences sharedPreferences;
     protected SharedPreferences.Editor prefEditor;
+    protected Context context;
 
     protected BaseWorker(BaseActivity baseActivity) {
         this.baseActivity = baseActivity;
-        sharedPreferences = baseActivity.getSharedPreferences(AppConfig.PREFS_NAMESPACE, Context.MODE_PRIVATE);
+        this.context = baseActivity.getApplicationContext();
+        sharedPreferences = context.getSharedPreferences(AppConfig.PREFS_NAMESPACE, Context.MODE_PRIVATE);
         prefEditor = sharedPreferences.edit();
     }
 
@@ -45,6 +49,7 @@ public abstract class BaseWorker {
         httpHeaders.setContentType(new MediaType("application", "json"));
 
         if (sessionCookie != null) {
+            Log.d(TAG, "Session: " + sessionCookie);
             httpHeaders.set(AppConfig.AUTH_TOKEN_HEADER, sessionCookie);
         }
         if (obj != null) {
@@ -53,7 +58,7 @@ public abstract class BaseWorker {
         return new HttpEntity<>(httpHeaders);
     }
 
-    public String getSessionCookie() {
+    private String getSessionCookie() {
         return sharedPreferences.getString(AppConfig.AUTH_TOKEN_HEADER, null);
     }
 
@@ -68,10 +73,29 @@ public abstract class BaseWorker {
     protected void setSessionCookieFromHeader(List<String> cookieVales) {
         for (String item : cookieVales) {
             if (item.contains(AppConfig.AUTH_TOKEN)) {
-                prefEditor.putString(AppConfig.AUTH_TOKEN_HEADER, item).commit();
-                Log.d(TAG, "Session: " + item);
+                String token = item.substring(item.indexOf("=") + 1, item.indexOf(";"));
+                prefEditor.putString(AppConfig.AUTH_TOKEN_HEADER, token).commit();
+                Log.d(TAG, "Session: " + token);
                 break;
             }
         }
+    }
+
+    protected void issueStatusToast(String status) {
+        cancelProgressDialog();
+        if (status.equals(AppConfig.WRONG_PASSWORD)) {
+            Toast.makeText(baseActivity, R.string.toast_wrong_password, Toast.LENGTH_LONG).show();
+        } else if (status.equals(AppConfig.USER_NOT_EXIST)) {
+            Toast.makeText(baseActivity, R.string.toast_user_not_exist, Toast.LENGTH_LONG).show();
+        } else if (status.equals(AppConfig.ACCOUNT_CREATED)) {
+            Toast.makeText(baseActivity, R.string.toast_account_created, Toast.LENGTH_LONG).show();
+        } else if (status.equals(AppConfig.LOGIN_SUCCESS)) {
+            Toast.makeText(baseActivity, R.string.toast_login_success, Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    private void cancelProgressDialog() {
+        baseActivity.getProgressDialog().cancel();
     }
 }

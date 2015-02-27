@@ -1,11 +1,13 @@
 package com.steiner_consult.workers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.steiner_consult.asktoagree.BaseActivity;
+import com.steiner_consult.asktoagree.MainActivity;
 import com.steiner_consult.models.responses.LoginResponse;
 import com.steiner_consult.models.responses.RegisterResponse;
 import com.steiner_consult.models.requests.LoginRequest;
@@ -13,15 +15,10 @@ import com.steiner_consult.utilities.AppConfig;
 
 import com.steiner_consult.utilities.NetworkURL;
 
-import org.apache.http.Header;
-import org.apache.http.client.methods.HttpHead;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Philipp on 05.02.15.
@@ -55,8 +52,7 @@ public class LoginWorker extends BaseWorker {
             try {
                 final String url = NetworkURL.LOGIN.getUrl();
                 Log.d(TAG, "PostRequest to: " + url);
-                ResponseEntity<LoginResponse> responseEntity = getRestTemplate().exchange(url, HttpMethod.POST, getRequestEntity(loginRequest), LoginResponse.class);
-                return responseEntity;
+                return getRestTemplate().exchange(url, HttpMethod.POST, getRequestEntity(loginRequest), LoginResponse.class);
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage(), e);
             }
@@ -67,10 +63,16 @@ public class LoginWorker extends BaseWorker {
         protected void onPostExecute(ResponseEntity<LoginResponse> responseEntity) {
             LoginResponse loginResponse = responseEntity.getBody();
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
-                setSessionCookieFromHeader(responseEntity.getHeaders().get(AppConfig.RESPONSE_SESSION_COOKIE));
                 Log.d(TAG, "User id: " + loginResponse.getId() + " Status: " + loginResponse.getStatus());
+                issueStatusToast(loginResponse.getStatus());
+                if (loginResponse.getStatus().equals(AppConfig.LOGIN_SUCCESS)) {
+                    setSessionCookieFromHeader(responseEntity.getHeaders().get(AppConfig.RESPONSE_SESSION_COOKIE));
+                    Intent intent = new Intent(baseActivity.getApplicationContext(), MainActivity.class);
+                    baseActivity.startActivity(intent);
+                }
+
             }
-            baseActivity.getProgressDialog().cancel();
+
 
         }
     }
