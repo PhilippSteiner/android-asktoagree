@@ -1,5 +1,7 @@
 package com.steiner_consult.workers;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -8,11 +10,18 @@ import com.steiner_consult.models.responses.LoginResponse;
 import com.steiner_consult.models.responses.RegisterResponse;
 import com.steiner_consult.models.requests.LoginRequest;
 import com.steiner_consult.utilities.AppConfig;
+
 import com.steiner_consult.utilities.NetworkURL;
 
+import org.apache.http.Header;
+import org.apache.http.client.methods.HttpHead;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Philipp on 05.02.15.
@@ -20,11 +29,10 @@ import org.springframework.http.ResponseEntity;
 public class LoginWorker extends BaseWorker {
 
     private final String TAG = this.getClass().getName();
-    private BaseActivity baseActivity;
     private LoginRequest loginRequest;
 
     public LoginWorker(BaseActivity baseActivity) {
-        this.baseActivity = baseActivity;
+        super(baseActivity);
     }
 
     public void loginUser(LoginRequest loginRequest) {
@@ -57,9 +65,9 @@ public class LoginWorker extends BaseWorker {
 
         @Override
         protected void onPostExecute(ResponseEntity<LoginResponse> responseEntity) {
-
             LoginResponse loginResponse = responseEntity.getBody();
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
+                setSessionCookieFromHeader(responseEntity.getHeaders().get(AppConfig.RESPONSE_SESSION_COOKIE));
                 Log.d(TAG, "User id: " + loginResponse.getId() + " Status: " + loginResponse.getStatus());
             }
             baseActivity.getProgressDialog().cancel();

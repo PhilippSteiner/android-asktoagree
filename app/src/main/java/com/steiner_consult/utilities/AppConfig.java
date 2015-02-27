@@ -8,6 +8,12 @@ public class AppConfig {
 
     /* App Settings */
     public static final String CLIENT_TOKEN = "341778420137";
+    public static final String PLAY_SESSION = "PLAY_SESSION";
+    public static final String SERVER_SESSION_COOKIE_KEY = "id";
+    public static final String PREFS_NAMESPACE = "com.steiner_consult.asktoagree";
+    public static final String RESPONSE_SESSION_COOKIE = "Set-Cookie";
+    public static final String AUTH_TOKEN_HEADER = "X-AUTH-TOKEN";
+    public static final String AUTH_TOKEN = "authToken";
 
     // Google Plus
     public static final String SERVER_CLIENT_ID = "341778420137-qd3us9pvki35bpu6m3iuvs9v9fo10qe0.apps.googleusercontent.com";

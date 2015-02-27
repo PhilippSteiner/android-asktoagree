@@ -18,12 +18,12 @@ import org.springframework.http.ResponseEntity;
 public class UserRegisterWorker extends BaseWorker {
 
     private final String TAG = this.getClass().getName();
-    private BaseActivity baseActivity;
+
     private RegisterRequest registerRequest;
 
 
-    public UserRegisterWorker(BaseActivity activity) {
-        this.baseActivity = activity;
+    public UserRegisterWorker(BaseActivity baseActivity) {
+        super(baseActivity);
     }
 
     public void createUser(RegisterRequest registerRequest) {
