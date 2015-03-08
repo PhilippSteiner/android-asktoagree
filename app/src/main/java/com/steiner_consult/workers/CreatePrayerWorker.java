@@ -58,9 +58,9 @@ public class CreatePrayerWorker extends BaseWorker {
         protected void onPostExecute(ResponseEntity<BaseResponse> responseEntity) {
             BaseResponse baseResponse = responseEntity.getBody();
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
-                Log.d(TAG, "User id: " + baseResponse.getId() + " Status: " + baseResponse.getStatus());
+                Log.d(TAG, " Status: " + baseResponse.getStatus());
                 issueStatusToast(baseResponse.getStatus());
-                setSessionCookieFromHeader(responseEntity.getHeaders().get(AppConfig.RESPONSE_SESSION_COOKIE));
+                //setSessionCookieFromHeader(responseEntity.getHeaders().get(AppConfig.RESPONSE_SESSION_COOKIE));
                 if (baseResponse.getStatus().equals(AppConfig.OK)) {
                     //TODO: Handle Success
 

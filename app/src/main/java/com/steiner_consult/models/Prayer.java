@@ -1,5 +1,7 @@
 package com.steiner_consult.models;
 
+import java.util.Date;
+
 /**
  * Created by Philipp on 29.01.15.
  */
@@ -8,6 +10,11 @@ public class Prayer {
     private int id;
     private String title;
     private String text;
+    private Date creationDate;
+    private boolean status;
+    private String testimony;
+    private long creator;
+    private boolean isAgreed;
 
     public int getId() {
         return id;
@@ -32,4 +39,29 @@ public class Prayer {
     public void setText(String text) {
         this.text = text;
     }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public String getTestimony() {
+        return testimony;
+    }
+
+    public void setTestimony(String testimony) {
+        this.testimony = testimony;
+    }
+
 }

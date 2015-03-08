@@ -5,8 +5,8 @@ package com.steiner_consult.models.responses;
  */
 public class BaseResponse {
 
-    private int id;
-    private String status;
+    protected int id;
+    protected String status;
 
     public int getId() {
         return id;

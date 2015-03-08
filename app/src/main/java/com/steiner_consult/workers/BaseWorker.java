@@ -83,14 +83,22 @@ public abstract class BaseWorker {
 
     protected void issueStatusToast(String status) {
         cancelProgressDialog();
-        if (status.equals(AppConfig.WRONG_PASSWORD)) {
-            Toast.makeText(baseActivity, R.string.toast_wrong_password, Toast.LENGTH_LONG).show();
-        } else if (status.equals(AppConfig.USER_NOT_EXIST)) {
-            Toast.makeText(baseActivity, R.string.toast_user_not_exist, Toast.LENGTH_LONG).show();
-        } else if (status.equals(AppConfig.ACCOUNT_CREATED)) {
-            Toast.makeText(baseActivity, R.string.toast_account_created, Toast.LENGTH_LONG).show();
-        } else if (status.equals(AppConfig.LOGIN_SUCCESS)) {
-            Toast.makeText(baseActivity, R.string.toast_login_success, Toast.LENGTH_LONG).show();
+        switch (status) {
+            case AppConfig.WRONG_PASSWORD:
+                Toast.makeText(baseActivity, R.string.toast_wrong_password, Toast.LENGTH_LONG).show();
+                break;
+            case AppConfig.USER_NOT_EXIST:
+                Toast.makeText(baseActivity, R.string.toast_user_not_exist, Toast.LENGTH_LONG).show();
+                break;
+            case AppConfig.ACCOUNT_CREATED:
+                Toast.makeText(baseActivity, R.string.toast_account_created, Toast.LENGTH_LONG).show();
+                break;
+            case AppConfig.LOGIN_SUCCESS:
+                Toast.makeText(baseActivity, R.string.toast_login_success, Toast.LENGTH_LONG).show();
+                break;
+            case AppConfig.OK:
+                Toast.makeText(baseActivity, R.string.toast_ok, Toast.LENGTH_LONG);
+                break;
         }
 
     }

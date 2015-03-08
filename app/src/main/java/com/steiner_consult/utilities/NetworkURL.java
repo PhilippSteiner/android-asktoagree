@@ -7,11 +7,12 @@ public enum NetworkURL {
 
     REGISTERACCOUNT("account/", "register/", "Register the AppUser"),
     LOGIN("account/", "login/", "Login the AppUser"),
-    PRAYER_CREATE("prayer/", "create/", "Create a Prayer");
+    PRAYER_CREATE("prayer/", "create/", "Create a Prayer"),
+    PRAYER_LIST("prayer/", "prayers/", "Get Prayers by Creator");
 
     private String path;
     private String description;
-    private String protokoll = "https://";
+    private String protokol = "https://";
     private String baseDomain = "asktoagree.herokuapp.com/";
     private String controller;
 
@@ -22,6 +23,6 @@ public enum NetworkURL {
     }
 
     public String getUrl() {
-        return protokoll + baseDomain + controller + path;
+        return protokol + baseDomain + controller + path;
     }
 }
