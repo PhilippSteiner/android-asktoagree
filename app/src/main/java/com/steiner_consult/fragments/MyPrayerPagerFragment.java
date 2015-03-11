@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class MyPrayerPagerFragment extends BaseFragment {
 
     private ListView listView;
-    private ArrayList<Prayer> myPrayerList;
+    private Prayer[] prayers;
     private MyPrayersListAdapter myPrayersListAdapter;
     private MyPrayersWorker myPrayersWorker;
 
@@ -50,7 +50,7 @@ public class MyPrayerPagerFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-        //myPrayersWorker.loadPrayers();
+        myPrayersWorker.loadPrayers();
     }
 
     @Override
@@ -74,8 +74,8 @@ public class MyPrayerPagerFragment extends BaseFragment {
                 .commit();
     }
 
-    public void setData(ArrayList<Prayer> myPrayerList) {
-        this.myPrayerList = myPrayerList;
+    public void setData(Prayer[] prayers) {
+        this.prayers = prayers;
         myPrayersListAdapter = new MyPrayersListAdapter((BaseActivity) getActivity());
         listView.setAdapter(myPrayersListAdapter);
     }
@@ -83,7 +83,7 @@ public class MyPrayerPagerFragment extends BaseFragment {
     private class MyPrayersListAdapter extends ArrayAdapter<Prayer> {
 
         public MyPrayersListAdapter(BaseActivity baseActivity) {
-            super(baseActivity, R.layout.list_item_my_prayers, myPrayerList);
+            super(baseActivity, R.layout.list_item_my_prayers, prayers);
         }
 
         @Override
@@ -91,12 +91,12 @@ public class MyPrayerPagerFragment extends BaseFragment {
             MyPrayerWrapper wrapper;
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_my_prayers, parent, false);
-                wrapper = new MyPrayerWrapper(convertView);
+                wrapper = new MyPrayerWrapper(convertView, (BaseActivity) getActivity());
                 convertView.setTag(wrapper);
             } else {
                 wrapper = (MyPrayerWrapper) convertView.getTag();
             }
-            wrapper.setData(myPrayerList.get(position));
+            wrapper.setData(prayers[position]);
             return convertView;
         }
     }

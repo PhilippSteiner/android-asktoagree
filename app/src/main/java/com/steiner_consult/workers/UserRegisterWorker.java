@@ -42,11 +42,11 @@ public class UserRegisterWorker extends BaseWorker {
 
         @Override
         protected ResponseEntity<RegisterResponse> doInBackground(Void... params) {
-            final String url = NetworkURL.REGISTERACCOUNT.getUrl();
+            final String url = NetworkURL.REGISTER_ACCOUNT.getUrl();
             Log.d(TAG, "PostRequest to: " + url);
             ResponseEntity<RegisterResponse> responseEntity = getRestTemplate().exchange(url, HttpMethod.POST, getRequestEntity(registerRequest), RegisterResponse.class);
             RegisterResponse registerResponse = responseEntity.getBody();
-            Log.d(TAG, "User id: " + registerResponse.getId() + " Status: " + registerResponse.getStatus());
+            Log.d(TAG, "User id: " + registerResponse.getId() + " Status: " + registerResponse.getStatus() + "Created: " + registerResponse.getCreationDate().toString());
             return responseEntity;
         }
 

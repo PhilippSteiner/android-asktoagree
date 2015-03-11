@@ -81,6 +81,10 @@ public abstract class BaseWorker {
         }
     }
 
+    protected void deleteSessionFromPreferences() {
+        prefEditor.putString(AppConfig.AUTH_TOKEN_HEADER, null).apply();
+    }
+
     protected void issueStatusToast(String status) {
         cancelProgressDialog();
         switch (status) {
@@ -97,7 +101,7 @@ public abstract class BaseWorker {
                 Toast.makeText(baseActivity, R.string.toast_login_success, Toast.LENGTH_LONG).show();
                 break;
             case AppConfig.OK:
-                Toast.makeText(baseActivity, R.string.toast_ok, Toast.LENGTH_LONG);
+                Toast.makeText(baseActivity, R.string.toast_ok, Toast.LENGTH_LONG).show();
                 break;
         }
 

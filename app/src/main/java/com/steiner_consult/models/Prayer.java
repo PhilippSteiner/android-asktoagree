@@ -14,7 +14,7 @@ public class Prayer {
     private boolean status;
     private String testimony;
     private long creator;
-    private boolean isAgreed;
+    private boolean agreed;
 
     public int getId() {
         return id;
@@ -64,4 +64,19 @@ public class Prayer {
         this.testimony = testimony;
     }
 
+    public long getCreator() {
+        return creator;
+    }
+
+    public void setCreator(long creator) {
+        this.creator = creator;
+    }
+
+    public boolean isAgreed() {
+        return agreed;
+    }
+
+    public void setAgreed(boolean agreed) {
+        this.agreed = agreed;
+    }
 }

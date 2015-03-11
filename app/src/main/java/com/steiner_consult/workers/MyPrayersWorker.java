@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.steiner_consult.asktoagree.BaseActivity;
 import com.steiner_consult.fragments.MyPrayerPagerFragment;
+import com.steiner_consult.models.Prayer;
 import com.steiner_consult.models.responses.PrayersResponse;
 import com.steiner_consult.utilities.AppConfig;
 import com.steiner_consult.utilities.NetworkURL;
@@ -23,7 +24,7 @@ public class MyPrayersWorker extends BaseWorker {
 
     public MyPrayersWorker(MyPrayerPagerFragment myPrayerPagerFragment) {
         super((BaseActivity) myPrayerPagerFragment.getActivity());
-        myPrayerPagerFragment = myPrayerPagerFragment;
+        this.myPrayerPagerFragment = myPrayerPagerFragment;
     }
 
     public void loadPrayers() {
@@ -58,6 +59,7 @@ public class MyPrayersWorker extends BaseWorker {
                 Log.d(TAG, " Status: " + prayersResponse.getStatus());
                 issueStatusToast(prayersResponse.getStatus());
                 if (prayersResponse.getStatus().equals(AppConfig.OK)) {
+                    if (prayersResponse.getPrayers().length > 0)
                     myPrayerPagerFragment.setData(prayersResponse.getPrayers());
                 }
             } else if (responseEntity.getStatusCode() == HttpStatus.UNAUTHORIZED) {

@@ -1,11 +1,13 @@
 package com.steiner_consult.asktoagree;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
 import com.steiner_consult.fragments.IntroFragment;
 import com.steiner_consult.fragments.LoginFragment;
+import com.steiner_consult.utilities.AppConfig;
 
 
 /**
@@ -26,5 +28,7 @@ public class LoginActivity extends BaseActivity {
                 .commit();
 
     }
+
+
 
 }

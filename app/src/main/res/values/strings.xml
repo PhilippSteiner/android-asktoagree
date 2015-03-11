@@ -4,6 +4,7 @@
     <string name="app_name">AskToAgree</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="action_logout">Logout</string>
 
     //ActionBar
     <string name="action_createprayer">Create Prayer</string>

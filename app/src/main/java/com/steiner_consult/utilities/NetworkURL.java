@@ -5,8 +5,9 @@ package com.steiner_consult.utilities;
  */
 public enum NetworkURL {
 
-    REGISTERACCOUNT("account/", "register/", "Register the AppUser"),
+    REGISTER_ACCOUNT("account/", "register/", "Register the AppUser"),
     LOGIN("account/", "login/", "Login the AppUser"),
+    LOGOUT("account/", "logout/", "Logout the AppUser"),
     PRAYER_CREATE("prayer/", "create/", "Create a Prayer"),
     PRAYER_LIST("prayer/", "prayers/", "Get Prayers by Creator");
 

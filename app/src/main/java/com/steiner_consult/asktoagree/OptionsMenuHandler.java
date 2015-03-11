@@ -5,6 +5,7 @@ import android.view.MenuItem;
 
 import com.steiner_consult.fragments.BaseFragment;
 import com.steiner_consult.fragments.CreatePrayerFragment;
+import com.steiner_consult.workers.LogoutWorker;
 
 /**
  * Created by Philipp on 31.01.15.
@@ -33,6 +34,8 @@ public class OptionsMenuHandler {
                 baseFragment.getActivity().startActivity(intent);
                 //TODO: Handle SettingsClick
                 return true;
+            case R.id.action_logout:
+                new LogoutWorker((BaseActivity)baseFragment.getActivity()).logoutUser();
             default:
                 return false;
         }
