@@ -9,7 +9,8 @@ public enum NetworkURL {
     LOGIN("account/", "login/", "Login the AppUser"),
     LOGOUT("account/", "logout/", "Logout the AppUser"),
     PRAYER_CREATE("prayer/", "create/", "Create a Prayer"),
-    PRAYER_LIST("prayer/", "prayers/", "Get Prayers by Creator");
+    PRAYER_LIST("prayer/", "prayers/", "Get Prayers by Creator"),
+    USER_LIST("friend/", "users/", "Get all other Users");
 
     private String path;
     private String description;

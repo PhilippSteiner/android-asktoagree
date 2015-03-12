@@ -16,7 +16,7 @@ import com.steiner_consult.models.Prayer;
 public class ViewPrayerFragment extends BaseFragment {
 
     private Prayer prayer;
-    private TextView title;
+    private TextView title, text;
 
     public static ViewPrayerFragment newInstance(Prayer prayer) {
         ViewPrayerFragment viewPrayerFragment = new ViewPrayerFragment();
@@ -32,7 +32,10 @@ public class ViewPrayerFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_layout_myprayer_view, container, false);
         title = (TextView) rootView.findViewById(R.id.title);
+        text = (TextView) rootView.findViewById(R.id.text);
         title.setText(prayer.getTitle());
+        text.setText(prayer.getText());
+
 
         return rootView;
     }

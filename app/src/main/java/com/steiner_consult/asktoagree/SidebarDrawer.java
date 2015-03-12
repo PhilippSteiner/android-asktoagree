@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.steiner_consult.adapters.SidebarAdapter;
+import com.steiner_consult.fragments.InviteFragment;
 import com.steiner_consult.fragments.MyPrayerPagerFragment;
 import com.steiner_consult.models.SidebarItem;
 
@@ -84,6 +85,8 @@ public class SidebarDrawer {
             case 0: fragment = MyPrayerPagerFragment.newInstance();
                 break;
             case 1: fragment = MyPrayerPagerFragment.newInstance();
+                break;
+            case 2: fragment = InviteFragment.newInstance();
                 break;
             default: fragment = MyPrayerPagerFragment.newInstance();
                 break;
