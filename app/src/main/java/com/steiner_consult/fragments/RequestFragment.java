@@ -13,30 +13,30 @@ import com.steiner_consult.asktoagree.R;
 import com.steiner_consult.interfaces.FriendFragment;
 import com.steiner_consult.models.AppUser;
 import com.steiner_consult.workers.FriendsWorker;
-import com.steiner_consult.wrappers.InviteUserWrapper;
+import com.steiner_consult.wrappers.RequestUserWrapper;
+
 import java.util.ArrayList;
 
 /**
  * Created by Philipp on 12.03.15.
  */
-public class InviteFragment extends BaseFragment implements FriendFragment {
+public class RequestFragment extends BaseFragment implements FriendFragment {
 
-    private ListView listView;
+    private FriendsWorker friendsWorker;
     private ArrayList<AppUser> appUsers;
     private UserListAdapter userListAdapter;
-    private FriendsWorker friendsWorker;
+    private ListView listView;
 
-    public static InviteFragment newInstance() {
-        return new InviteFragment();
+    public static RequestFragment newInstance() {
+        return new RequestFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_layout_invite, container, false);
-
+        View rootView = inflater.inflate(R.layout.fragment_layout_invite_request, container, false);
         listView = (ListView) rootView.findViewById(R.id.listview);
         friendsWorker = new FriendsWorker(this);
-        friendsWorker.loadUsers();
+        friendsWorker.loadRequests();
 
         return rootView;
     }
@@ -44,14 +44,6 @@ public class InviteFragment extends BaseFragment implements FriendFragment {
     @Override
     public void goToFragment(BaseFragment baseFragment) {
 
-    }
-
-    public void sendInvite(AppUser appUser) {
-        friendsWorker.sendInvite(appUser);
-    }
-
-    private InviteFragment getFragment() {
-        return this;
     }
 
     @Override
@@ -64,18 +56,18 @@ public class InviteFragment extends BaseFragment implements FriendFragment {
     private class UserListAdapter extends ArrayAdapter<AppUser> {
 
         public UserListAdapter(BaseActivity baseActivity) {
-            super(baseActivity, R.layout.list_item_user_invite, appUsers);
+            super(baseActivity, R.layout.list_item_user_request, appUsers);
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            InviteUserWrapper wrapper;
+            RequestUserWrapper wrapper;
             if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_user_invite, parent, false);
-                wrapper = new InviteUserWrapper(convertView, getFragment());
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_user_request, parent, false);
+                wrapper = new RequestUserWrapper(convertView);
                 convertView.setTag(wrapper);
             } else {
-                wrapper = (InviteUserWrapper) convertView.getTag();
+                wrapper = (RequestUserWrapper) convertView.getTag();
             }
             wrapper.setData(appUsers.get(position));
             return convertView;

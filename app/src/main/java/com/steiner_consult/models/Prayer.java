@@ -15,6 +15,7 @@ public class Prayer {
     private String testimony;
     private long creator;
     private boolean agreed;
+    private boolean privacy;
 
     public int getId() {
         return id;
@@ -78,5 +79,13 @@ public class Prayer {
 
     public void setAgreed(boolean agreed) {
         this.agreed = agreed;
+    }
+
+    public boolean isPrivacy() {
+        return privacy;
+    }
+
+    public void setPrivacy(boolean privacy) {
+        this.privacy = privacy;
     }
 }

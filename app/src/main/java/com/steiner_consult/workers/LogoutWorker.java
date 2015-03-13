@@ -43,7 +43,7 @@ public class LogoutWorker extends BaseWorker {
         @Override
         protected ResponseEntity<BaseResponse> doInBackground(Void... params) {
             try {
-                final String url = NetworkURL.LOGIN.getUrl();
+                final String url = NetworkURL.LOGOUT.getUrl();
                 Log.d(TAG, "PostRequest to: " + url);
                 return getRestTemplate().exchange(url, HttpMethod.GET, getRequestEntity(null), BaseResponse.class);
             } catch (Exception e) {

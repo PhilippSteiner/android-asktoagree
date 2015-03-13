@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.steiner_consult.adapters.SidebarAdapter;
 import com.steiner_consult.fragments.InviteFragment;
 import com.steiner_consult.fragments.MyPrayerPagerFragment;
+import com.steiner_consult.fragments.RequestFragment;
 import com.steiner_consult.models.SidebarItem;
 
 import java.util.ArrayList;
@@ -67,6 +68,7 @@ public class SidebarDrawer {
         sidebarItemList.add(new SidebarItem("Top Prayers", R.drawable.ic_drawer_top));
         sidebarItemList.add(new SidebarItem("My Prayers", R.drawable.ic_drawer_my));
         sidebarItemList.add(new SidebarItem("Invite Brothers and Sisters", R.drawable.ic_drawer_invite));
+        sidebarItemList.add(new SidebarItem("Invite Request", R.drawable.ic_drawer_invite));
         return sidebarItemList;
     }
 
@@ -87,6 +89,8 @@ public class SidebarDrawer {
             case 1: fragment = MyPrayerPagerFragment.newInstance();
                 break;
             case 2: fragment = InviteFragment.newInstance();
+                break;
+            case 3: fragment = RequestFragment.newInstance();
                 break;
             default: fragment = MyPrayerPagerFragment.newInstance();
                 break;

@@ -32,10 +32,11 @@ public class OptionsMenuHandler {
             case R.id.action_settings:
                 Intent intent = new Intent(baseFragment.getActivity().getApplicationContext(), LoginActivity.class);
                 baseFragment.getActivity().startActivity(intent);
-                //TODO: Handle SettingsClick
                 return true;
             case R.id.action_logout:
-                new LogoutWorker((BaseActivity)baseFragment.getActivity()).logoutUser();
+                LogoutWorker logoutWorker = new LogoutWorker((BaseActivity)baseFragment.getActivity());
+                logoutWorker.logoutUser();
+                return true;
             default:
                 return false;
         }

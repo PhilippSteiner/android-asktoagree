@@ -56,5 +56,9 @@
 
     <!--Invite-->
     <string name="button_invite">invite</string>
+    <string name="tab_friends">Friends</string>
+    <string name="tab_request">Invite</string>
+    <string name="tab_respond">Invites</string>
+    <string name="request_sent">Request sent</string>
 
 </resources>

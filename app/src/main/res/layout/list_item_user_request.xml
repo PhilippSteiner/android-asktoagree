@@ -16,12 +16,12 @@
         android:textSize="16sp"
         android:text="Title"/>
 
-    <Button
-        android:id="@+id/button_invite"
+    <TextView
+        android:id="@+id/invited"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:text="@string/button_invite"/>
+        android:text="@string/request_sent"/>
 
 </RelativeLayout>
