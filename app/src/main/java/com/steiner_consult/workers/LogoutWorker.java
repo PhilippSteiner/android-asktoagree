@@ -54,6 +54,8 @@ public class LogoutWorker extends BaseWorker {
 
         @Override
         protected void onPostExecute(ResponseEntity<BaseResponse> responseEntity) {
+            if (CancelAndShowToast(responseEntity))
+                return;
             BaseResponse baseResponse = responseEntity.getBody();
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 Log.d(TAG, " Status: " + baseResponse.getStatus());

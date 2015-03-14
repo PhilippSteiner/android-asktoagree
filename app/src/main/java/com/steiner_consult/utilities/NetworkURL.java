@@ -13,7 +13,10 @@ public enum NetworkURL {
     USER_LIST("friend/", "users/", "Get all other Users"),
     FRIEND_INVITE("friend/", "invite/", "Invite a User"),
     FRIEND_REQUEST("friend/", "requests/", "Get the users requests"),
-    FRIEND_RESPONSE("friend/", "responds/", "Get the users responds");
+    FRIEND_RESPONSE("friend/", "responds/", "Get the users responds"),
+    FRIENDS_LIST("friend/", "friends/", "Get all Friends"),
+    FRIEND_CONFIRM("friend/", "confirm/", "Confirm FriendRequest"),
+    USER_SEARCH("friend/", "search/", "Search for existing users");
 
     private String path;
     private String description;

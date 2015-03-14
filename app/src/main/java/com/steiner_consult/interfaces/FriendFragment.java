@@ -1,5 +1,7 @@
 package com.steiner_consult.interfaces;
 
+import android.app.ProgressDialog;
+
 import com.steiner_consult.models.AppUser;
 
 import java.util.ArrayList;
@@ -10,4 +12,5 @@ import java.util.ArrayList;
 public interface FriendFragment {
 
     public void setListAdapterData(ArrayList<AppUser> appUsers);
+
 }

@@ -54,6 +54,8 @@ public class MyPrayersWorker extends BaseWorker {
 
         @Override
         protected void onPostExecute(ResponseEntity<PrayersResponse> responseEntity) {
+            if (CancelAndShowToast(responseEntity))
+                return;
             PrayersResponse prayersResponse = responseEntity.getBody();
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 Log.d(TAG, " Status: " + prayersResponse.getStatus());

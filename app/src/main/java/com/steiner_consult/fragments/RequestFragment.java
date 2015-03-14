@@ -37,7 +37,6 @@ public class RequestFragment extends BaseFragment implements FriendFragment {
         listView = (ListView) rootView.findViewById(R.id.listview);
         friendsWorker = new FriendsWorker(this);
         friendsWorker.loadRequests();
-
         return rootView;
     }
 

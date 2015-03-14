@@ -58,6 +58,8 @@ public class LoginWorker extends BaseWorker {
 
         @Override
         protected void onPostExecute(ResponseEntity<LoginResponse> responseEntity) {
+            if (CancelAndShowToast(responseEntity))
+                return;
             LoginResponse loginResponse = responseEntity.getBody();
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 Log.d(TAG, "User id: " + loginResponse.getId() + " Status: " + loginResponse.getStatus());

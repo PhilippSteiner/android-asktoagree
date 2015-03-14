@@ -1,5 +1,6 @@
 package com.steiner_consult.fragments;
 
+import android.app.ProgressDialog;
 import android.support.v4.app.Fragment;
 
 import com.steiner_consult.asktoagree.R;
@@ -16,6 +17,17 @@ import java.util.Locale;
 public abstract class BaseFragment extends Fragment {
 
     protected List<TabItem> tabsList = new ArrayList<TabItem>();
+
+    protected ProgressDialog progressDialog;
+
+
+    public ProgressDialog getProgressDialog() {
+        if(progressDialog == null) {
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setMessage("Loading...");
+        }
+        return progressDialog;
+    }
 
     public abstract void goToFragment(BaseFragment baseFragment);
 

@@ -3,8 +3,8 @@ package com.steiner_consult.adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.steiner_consult.fragments.FriendsPagerFragment;
 import com.steiner_consult.fragments.InviteFragment;
-import com.steiner_consult.fragments.InvitePagerFragment;
 import com.steiner_consult.slider.TabItem;
 
 import java.util.List;
@@ -12,12 +12,12 @@ import java.util.List;
 /**
  * Created by Philipp on 12.03.15.
  */
-public class InvitePagerAdapter extends FragmentPagerAdapter {
+public class FriendsPagerAdapter extends FragmentPagerAdapter {
 
     private List<TabItem> tabItemList;
 
-    public InvitePagerAdapter(InvitePagerFragment invitePagerFragment, List<TabItem> tabItemList) {
-        super(invitePagerFragment.getChildFragmentManager());
+    public FriendsPagerAdapter(FriendsPagerFragment friendsPagerFragment, List<TabItem> tabItemList) {
+        super(friendsPagerFragment.getChildFragmentManager());
         this.tabItemList = tabItemList;
     }
 

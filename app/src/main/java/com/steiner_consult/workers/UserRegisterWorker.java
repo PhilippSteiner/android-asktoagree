@@ -54,6 +54,8 @@ public class UserRegisterWorker extends BaseWorker {
 
         @Override
         protected void onPostExecute(ResponseEntity<RegisterResponse> responseEntity) {
+            if (CancelAndShowToast(responseEntity))
+                return;
             RegisterResponse registerResponse = responseEntity.getBody();
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 Log.d(TAG, "User id: " + registerResponse.getId() + " Status: " + registerResponse.getStatus() + "Created: " + registerResponse.getCreationDate().toString());

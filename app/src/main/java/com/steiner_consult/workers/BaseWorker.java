@@ -17,6 +17,7 @@ import org.springframework.http.ContentCodingType;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
@@ -105,6 +106,16 @@ public abstract class BaseWorker {
                 break;
         }
 
+    }
+
+    public boolean CancelAndShowToast(ResponseEntity response) {
+        if (response == null) {
+            Toast.makeText(baseActivity, R.string.toast_loading_error, Toast.LENGTH_SHORT).show();
+            if(baseActivity != null)
+                baseActivity.getProgressDialog().cancel();
+            return true;
+        }
+        return false;
     }
 
     private void cancelProgressDialog() {

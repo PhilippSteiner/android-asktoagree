@@ -1,9 +1,7 @@
 package com.steiner_consult.fragments;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.ContentLoadingProgressBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,54 +13,37 @@ import com.steiner_consult.asktoagree.R;
 import com.steiner_consult.interfaces.FriendFragment;
 import com.steiner_consult.models.AppUser;
 import com.steiner_consult.workers.FriendsWorker;
-import com.steiner_consult.wrappers.InviteUserWrapper;
+import com.steiner_consult.wrappers.FriendsWrapper;
+import com.steiner_consult.wrappers.RespondUserWrapper;
+
 import java.util.ArrayList;
 
 /**
- * Created by Philipp on 12.03.15.
+ * Created by Philipp on 13.03.15.
  */
-public class InviteFragment extends BaseFragment implements FriendFragment {
+public class FriendsFragment extends BaseFragment implements FriendFragment {
 
-    private ListView listView;
+    private FriendsWorker friendsWorker;
     private ArrayList<AppUser> appUsers;
     private UserListAdapter userListAdapter;
-    private FriendsWorker friendsWorker;
-    private ContentLoadingProgressBar contentLoadingProgressBar;
+    private ListView listView;
 
-    public static InviteFragment newInstance() {
-        return new InviteFragment();
+    public static FriendsFragment newInstance() {
+        return new FriendsFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_layout_invite, container, false);
-
+        View rootView = inflater.inflate(R.layout.fragment_layout_invite_response, container, false);
         listView = (ListView) rootView.findViewById(R.id.listview);
-        contentLoadingProgressBar = (ContentLoadingProgressBar) rootView.findViewById(R.id.content_bar);
-
         friendsWorker = new FriendsWorker(this);
-        friendsWorker.loadUsers();
-
-
-
+        friendsWorker.loadFriends();
         return rootView;
     }
 
     @Override
     public void goToFragment(BaseFragment baseFragment) {
 
-    }
-
-    public void sendInvite(AppUser appUser) {
-        friendsWorker.sendInvite(appUser);
-    }
-
-    private InviteFragment getFragment() {
-        return this;
-    }
-
-    public ContentLoadingProgressBar getLoadingBar() {
-        return contentLoadingProgressBar;
     }
 
     @Override
@@ -72,22 +53,21 @@ public class InviteFragment extends BaseFragment implements FriendFragment {
         listView.setAdapter(userListAdapter);
     }
 
-
     private class UserListAdapter extends ArrayAdapter<AppUser> {
 
         public UserListAdapter(BaseActivity baseActivity) {
-            super(baseActivity, R.layout.list_item_user_invite, appUsers);
+            super(baseActivity, R.layout.list_item_user_friend, appUsers);
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            InviteUserWrapper wrapper;
+            FriendsWrapper wrapper;
             if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_user_invite, parent, false);
-                wrapper = new InviteUserWrapper(convertView, getFragment());
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_user_friend, parent, false);
+                wrapper = new FriendsWrapper(convertView);
                 convertView.setTag(wrapper);
             } else {
-                wrapper = (InviteUserWrapper) convertView.getTag();
+                wrapper = (FriendsWrapper) convertView.getTag();
             }
             wrapper.setData(appUsers.get(position));
             return convertView;
