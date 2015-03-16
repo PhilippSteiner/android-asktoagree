@@ -26,20 +26,4 @@ public abstract class BaseFragment extends Fragment {
         return progressBar;
     }
 
-    protected void initializeInviteTabs() {
-        int[] threeTabNames = {R.string.tab_friends, R.string.tab_request, R.string.tab_respond};
-        addTabs(threeTabNames);
-    }
-
-    private void addTabs(int[] tabTexte) {
-        Locale l = Locale.getDefault();
-        for (int tabText : tabTexte) {
-            tabsList.add(new TabItem(
-                    getActivity().getString(tabText).toUpperCase(l),
-                    getResources().getColor(R.color.background_green),
-                    getResources().getColor(R.color.background_green)
-            ));
-        }
-    }
-
 }

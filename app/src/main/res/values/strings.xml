@@ -63,5 +63,6 @@
     <string name="request_sent">Request sent</string>
     <string name="button_accept">accept</string>
     <string name="button_accepted">accepted</string>
+    <string name="button_search">search</string>
 
 </resources>

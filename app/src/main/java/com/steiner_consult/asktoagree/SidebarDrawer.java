@@ -71,10 +71,6 @@ public class SidebarDrawer {
         List<SidebarItem> sidebarItemList = new ArrayList<>();
         sidebarItemList.add(new SidebarItem("Top Prayers", R.drawable.ic_drawer_top));
         sidebarItemList.add(new SidebarItem("My Prayers", R.drawable.ic_drawer_my));
-        sidebarItemList.add(new SidebarItem("Invites", R.drawable.ic_drawer_invite));
-        sidebarItemList.add(new SidebarItem("Invite Requests", R.drawable.ic_drawer_invite));
-        sidebarItemList.add(new SidebarItem("Invite Responses", R.drawable.ic_drawer_invite));
-        sidebarItemList.add(new SidebarItem("Friends", R.drawable.ic_drawer_invite));
         sidebarItemList.add(new SidebarItem("FriendsPager", R.drawable.ic_drawer_invite));
         return sidebarItemList;
     }
@@ -95,15 +91,7 @@ public class SidebarDrawer {
                 break;
             case 1: fragment = MyPrayerPagerFragment.newInstance();
                 break;
-            case 2: fragment = InviteFragment.newInstance();
-                break;
-            case 3: fragment = RequestFragment.newInstance();
-                break;
-            case 4: fragment = RespondFragment.newInstance();
-                break;
-            case 5: fragment = FriendsFragment.newInstance();
-                break;
-            case 6: fragment = FriendsPagerFragment.newInstance();
+            case 2: fragment = FriendsPagerFragment.newInstance();
                 break;
             default: fragment = MyPrayerPagerFragment.newInstance();
                 break;

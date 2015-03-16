@@ -292,7 +292,7 @@ public class FriendsWorker extends BaseWorker {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            baseActivity.getProgressDialog().show();
+            ((BaseFragment) friendFragment).getLoadingBar().setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -314,7 +314,6 @@ public class FriendsWorker extends BaseWorker {
             UsersResponse usersResponse = responseEntity.getBody();
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 Log.d(TAG, " Status: " + usersResponse.getStatus());
-                issueToastAndCancelDialog(usersResponse.getStatus());
                 if (usersResponse.getStatus().equals(AppConfig.OK)) {
                     if (usersResponse.getUsers().size() > 0)
                         Log.d(TAG, "Count: " + usersResponse.getUsers().size());
@@ -324,6 +323,7 @@ public class FriendsWorker extends BaseWorker {
             } else if (responseEntity.getStatusCode() == HttpStatus.UNAUTHORIZED) {
                 Log.d(TAG, "Unauthorized!");
             }
+            issueToastAndCancelDialog(usersResponse.getStatus(), (BaseFragment) friendFragment);
         }
     }
 }

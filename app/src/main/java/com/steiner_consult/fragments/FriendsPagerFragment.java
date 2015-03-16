@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.steiner_consult.adapters.FriendsPagerAdapter;
 import com.steiner_consult.asktoagree.R;
 import com.steiner_consult.slider.SlidingTabLayout;
@@ -18,7 +19,7 @@ public class FriendsPagerFragment extends BaseFragment {
 
     private ViewPager viewPager;
     private FriendsPagerAdapter friendsPagerAdapter;
-    private SlidingTabLayout slidingTabLayout;
+    private PagerSlidingTabStrip pagerSlidingTabStrip;
 
     public static FriendsPagerFragment newInstance() {
         return new FriendsPagerFragment();
@@ -27,19 +28,17 @@ public class FriendsPagerFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initializeInviteTabs();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_layout_friendspager, container, false);
         viewPager = (ViewPager) rootView.findViewById(R.id.pager);
-        friendsPagerAdapter = new FriendsPagerAdapter(this, tabsList);
+        friendsPagerAdapter = new FriendsPagerAdapter(this);
         viewPager.setAdapter(friendsPagerAdapter);
-        slidingTabLayout = (SlidingTabLayout) rootView.findViewById(R.id.sliding_tabs);
-        slidingTabLayout.setHorizontalScrollBarEnabled(true);
-        slidingTabLayout.setViewPager(viewPager);
-
+        pagerSlidingTabStrip = (PagerSlidingTabStrip) rootView.findViewById(R.id.pageslider);
+        pagerSlidingTabStrip.setViewPager(viewPager);
+        pagerSlidingTabStrip.setIndicatorColor(getResources().getColor(R.color.background_green));
         return rootView;
     }
 

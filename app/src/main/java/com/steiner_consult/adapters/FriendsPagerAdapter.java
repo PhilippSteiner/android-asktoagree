@@ -3,8 +3,12 @@ package com.steiner_consult.adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.steiner_consult.fragments.FriendsFragment;
 import com.steiner_consult.fragments.FriendsPagerFragment;
 import com.steiner_consult.fragments.InviteFragment;
+import com.steiner_consult.fragments.RequestFragment;
+import com.steiner_consult.fragments.RespondFragment;
+import com.steiner_consult.fragments.SearchFragment;
 import com.steiner_consult.slider.TabItem;
 
 import java.util.List;
@@ -14,11 +18,10 @@ import java.util.List;
  */
 public class FriendsPagerAdapter extends FragmentPagerAdapter {
 
-    private List<TabItem> tabItemList;
+    private final String[] TITLES = { "Invite", "Request", "Respond", "Friends", "Search" };
 
-    public FriendsPagerAdapter(FriendsPagerFragment friendsPagerFragment, List<TabItem> tabItemList) {
+    public FriendsPagerAdapter(FriendsPagerFragment friendsPagerFragment) {
         super(friendsPagerFragment.getChildFragmentManager());
-        this.tabItemList = tabItemList;
     }
 
     @Override
@@ -27,9 +30,13 @@ public class FriendsPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return InviteFragment.newInstance();
             case 1:
-                return InviteFragment.newInstance();
+                return RequestFragment.newInstance();
             case 2:
-                return InviteFragment.newInstance();
+                return RespondFragment.newInstance();
+            case 3:
+                return FriendsFragment.newInstance();
+            case 4:
+                return SearchFragment.newInstance();
             default:
                 return null;
         }
@@ -37,11 +44,11 @@ public class FriendsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return tabItemList.get(position).getTitle();
+        return TITLES[position];
     }
 
     @Override
     public int getCount() {
-        return tabItemList.size();
+        return TITLES.length;
     }
 }
