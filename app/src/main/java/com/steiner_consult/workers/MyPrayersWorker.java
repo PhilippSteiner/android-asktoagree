@@ -59,7 +59,7 @@ public class MyPrayersWorker extends BaseWorker {
             PrayersResponse prayersResponse = responseEntity.getBody();
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 Log.d(TAG, " Status: " + prayersResponse.getStatus());
-                issueStatusToast(prayersResponse.getStatus());
+                issueToastAndCancelDialog(prayersResponse.getStatus());
                 if (prayersResponse.getStatus().equals(AppConfig.OK)) {
                     if (prayersResponse.getPrayers().length > 0)
                     myPrayerPagerFragment.setData(prayersResponse.getPrayers());

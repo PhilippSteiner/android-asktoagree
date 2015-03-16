@@ -59,7 +59,7 @@ public class LogoutWorker extends BaseWorker {
             BaseResponse baseResponse = responseEntity.getBody();
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 Log.d(TAG, " Status: " + baseResponse.getStatus());
-                issueStatusToast(baseResponse.getStatus());
+                issueToastAndCancelDialog(baseResponse.getStatus());
                 if(baseResponse.getStatus().equals(AppConfig.OK)){
                     deleteSessionFromPreferences();
                     baseActivity.startActivity(new Intent(baseActivity.getApplicationContext(), LoginActivity.class));

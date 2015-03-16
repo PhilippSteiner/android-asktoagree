@@ -3,6 +3,7 @@ package com.steiner_consult.workers;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.steiner_consult.asktoagree.BaseActivity;
@@ -13,6 +14,7 @@ import com.steiner_consult.interfaces.FriendFragment;
 import com.steiner_consult.models.AppUser;
 import com.steiner_consult.models.requests.ConfirmFriendRequest;
 import com.steiner_consult.models.requests.InviteRequest;
+import com.steiner_consult.models.requests.SearchRequest;
 import com.steiner_consult.models.responses.BaseResponse;
 import com.steiner_consult.models.responses.UsersResponse;
 import com.steiner_consult.utilities.AppConfig;
@@ -30,6 +32,7 @@ public class FriendsWorker extends BaseWorker {
     private FriendFragment friendFragment;
     private InviteRequest inviteRequest;
     private ConfirmFriendRequest confirmFriendRequest;
+    private SearchRequest searchRequest;
 
     public FriendsWorker(FriendFragment friendFragment) {
         super((BaseActivity) ((Fragment) friendFragment).getActivity());
@@ -64,14 +67,18 @@ public class FriendsWorker extends BaseWorker {
         new ConfirmFriendAsyncTask().execute();
     }
 
+    public void searchUsers(String search) {
+        searchRequest = new SearchRequest();
+        searchRequest.setSearch(search);
+        new SearchUsersAsyncTask().execute();
+    }
+
     private class GetUsersAsyncTask extends AsyncTask<Void, Void, ResponseEntity<UsersResponse>> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            ((InviteFragment) friendFragment).getLoadingBar().show();
-            //((BaseFragment) friendFragment).getProgressDialog().show();
-            //baseActivity.getProgressDialog().show();
+            ((BaseFragment) friendFragment).getLoadingBar().setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -88,34 +95,23 @@ public class FriendsWorker extends BaseWorker {
 
         @Override
         protected void onPostExecute(ResponseEntity<UsersResponse> responseEntity) {
-            if (CancelAndShowToast(responseEntity))
+            if (CancelAndShowToast(responseEntity, (BaseFragment) friendFragment))
                 return;
             UsersResponse usersResponse = responseEntity.getBody();
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 Log.d(TAG, " Status: " + usersResponse.getStatus());
-                //issueStatusToast(usersResponse.getStatus());
                 if (usersResponse.getStatus().equals(AppConfig.OK)) {
                     if (usersResponse.getUsers().size() > 0)
                         Log.d(TAG, "Count: " + usersResponse.getUsers().size());
                         friendFragment.setListAdapterData(usersResponse.getUsers());
                 }
+
             } else if (responseEntity.getStatusCode() == HttpStatus.UNAUTHORIZED) {
                 Log.d(TAG, "Unauthorized!");
             }
-            //((BaseFragment) friendFragment).getProgressDialog().cancel();
-            ((InviteFragment) friendFragment).getLoadingBar().hide();
+            issueToastAndCancelDialog(usersResponse.getStatus(), (BaseFragment) friendFragment);
         }
 
-        public boolean CancelAndShowToast(ResponseEntity response) {
-            if (response == null) {
-                Toast.makeText(baseActivity, R.string.toast_loading_error, Toast.LENGTH_SHORT).show();
-                if(friendFragment != null)
-                    //((BaseFragment) friendFragment).getProgressDialog().cancel();
-                    ((InviteFragment) friendFragment).getLoadingBar().hide();
-                return true;
-            }
-            return false;
-        }
     }
 
     private class InviteAsyncTask extends AsyncTask<Void, Void, ResponseEntity<BaseResponse>> {
@@ -139,7 +135,7 @@ public class FriendsWorker extends BaseWorker {
             BaseResponse baseResponse = responseEntity.getBody();
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 Log.d(TAG, " Status: " + baseResponse.getStatus());
-                issueStatusToast(baseResponse.getStatus());
+                issueToastAndCancelDialog(baseResponse.getStatus());
             } else if (responseEntity.getStatusCode() == HttpStatus.UNAUTHORIZED) {
                 Log.d(TAG, "Unauthorized!");
             }
@@ -151,7 +147,7 @@ public class FriendsWorker extends BaseWorker {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            baseActivity.getProgressDialog().show();
+            ((BaseFragment) friendFragment).getLoadingBar().setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -173,7 +169,6 @@ public class FriendsWorker extends BaseWorker {
             UsersResponse usersResponse = responseEntity.getBody();
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 Log.d(TAG, " Status: " + usersResponse.getStatus());
-                issueStatusToast(usersResponse.getStatus());
                 if (usersResponse.getStatus().equals(AppConfig.OK)) {
                     if (usersResponse.getUsers().size() > 0)
                         Log.d(TAG, "Count: " + usersResponse.getUsers().size());
@@ -182,6 +177,7 @@ public class FriendsWorker extends BaseWorker {
             } else if (responseEntity.getStatusCode() == HttpStatus.UNAUTHORIZED) {
                 Log.d(TAG, "Unauthorized!");
             }
+            issueToastAndCancelDialog(usersResponse.getStatus(), (BaseFragment) friendFragment);
         }
     }
 
@@ -190,7 +186,7 @@ public class FriendsWorker extends BaseWorker {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            baseActivity.getProgressDialog().show();
+            ((BaseFragment) friendFragment).getLoadingBar().setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -212,7 +208,6 @@ public class FriendsWorker extends BaseWorker {
             UsersResponse usersResponse = responseEntity.getBody();
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 Log.d(TAG, " Status: " + usersResponse.getStatus());
-                issueStatusToast(usersResponse.getStatus());
                 if (usersResponse.getStatus().equals(AppConfig.OK)) {
                     if (usersResponse.getUsers().size() > 0)
                         Log.d(TAG, "Count: " + usersResponse.getUsers().size());
@@ -221,6 +216,7 @@ public class FriendsWorker extends BaseWorker {
             } else if (responseEntity.getStatusCode() == HttpStatus.UNAUTHORIZED) {
                 Log.d(TAG, "Unauthorized!");
             }
+            issueToastAndCancelDialog(usersResponse.getStatus(), (BaseFragment) friendFragment);
         }
     }
 
@@ -245,7 +241,7 @@ public class FriendsWorker extends BaseWorker {
             BaseResponse baseResponse = responseEntity.getBody();
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 Log.d(TAG, " Status: " + baseResponse.getStatus());
-                issueStatusToast(baseResponse.getStatus());
+                issueToastAndCancelDialog(baseResponse.getStatus());
             } else if (responseEntity.getStatusCode() == HttpStatus.UNAUTHORIZED) {
                 Log.d(TAG, "Unauthorized!");
             }
@@ -257,7 +253,7 @@ public class FriendsWorker extends BaseWorker {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            baseActivity.getProgressDialog().show();
+            ((BaseFragment) friendFragment).getLoadingBar().setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -279,11 +275,51 @@ public class FriendsWorker extends BaseWorker {
             UsersResponse usersResponse = responseEntity.getBody();
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 Log.d(TAG, " Status: " + usersResponse.getStatus());
-                issueStatusToast(usersResponse.getStatus());
                 if (usersResponse.getStatus().equals(AppConfig.OK)) {
                     if (usersResponse.getUsers().size() > 0)
                         Log.d(TAG, "Count: " + usersResponse.getUsers().size());
                     friendFragment.setListAdapterData(usersResponse.getUsers());
+                }
+            } else if (responseEntity.getStatusCode() == HttpStatus.UNAUTHORIZED) {
+                Log.d(TAG, "Unauthorized!");
+            }
+            issueToastAndCancelDialog(usersResponse.getStatus(), (BaseFragment) friendFragment);
+        }
+    }
+
+    private class SearchUsersAsyncTask extends AsyncTask<Void, Void, ResponseEntity<UsersResponse>> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            baseActivity.getProgressDialog().show();
+        }
+
+        @Override
+        protected ResponseEntity<UsersResponse> doInBackground(Void... params) {
+            try {
+                final String url = NetworkURL.USER_SEARCH.getUrl();
+                Log.d(TAG, "PostRequest to: " + url);
+                return getRestTemplate().exchange(url, HttpMethod.POST, getRequestEntity(searchRequest), UsersResponse.class);
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage(), e);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(ResponseEntity<UsersResponse> responseEntity) {
+            if (CancelAndShowToast(responseEntity))
+                return;
+            UsersResponse usersResponse = responseEntity.getBody();
+            if (responseEntity.getStatusCode() == HttpStatus.OK) {
+                Log.d(TAG, " Status: " + usersResponse.getStatus());
+                issueToastAndCancelDialog(usersResponse.getStatus());
+                if (usersResponse.getStatus().equals(AppConfig.OK)) {
+                    if (usersResponse.getUsers().size() > 0)
+                        Log.d(TAG, "Count: " + usersResponse.getUsers().size());
+                    friendFragment.setListAdapterData(usersResponse.getUsers());
+                    //TODO: Resolve empty list
                 }
             } else if (responseEntity.getStatusCode() == HttpStatus.UNAUTHORIZED) {
                 Log.d(TAG, "Unauthorized!");

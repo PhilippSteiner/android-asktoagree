@@ -5,12 +5,14 @@ package com.steiner_consult.workers;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.deser.Deserializers;
 import com.steiner_consult.asktoagree.BaseActivity;
 import com.steiner_consult.asktoagree.R;
+import com.steiner_consult.fragments.BaseFragment;
 import com.steiner_consult.utilities.AppConfig;
 
 import org.springframework.http.ContentCodingType;
@@ -86,8 +88,17 @@ public abstract class BaseWorker {
         prefEditor.putString(AppConfig.AUTH_TOKEN_HEADER, null).apply();
     }
 
-    protected void issueStatusToast(String status) {
+    protected void issueToastAndCancelDialog(String status) {
         cancelProgressDialog();
+        issueToast(status);
+    }
+
+    protected void issueToastAndCancelDialog(String status, BaseFragment baseFragment) {
+        cancelLoadingBar(baseFragment);
+        issueToast(status);
+    }
+
+    private void issueToast(String status) {
         switch (status) {
             case AppConfig.WRONG_PASSWORD:
                 Toast.makeText(baseActivity, R.string.toast_wrong_password, Toast.LENGTH_LONG).show();
@@ -105,7 +116,6 @@ public abstract class BaseWorker {
                 Toast.makeText(baseActivity, R.string.toast_ok, Toast.LENGTH_LONG).show();
                 break;
         }
-
     }
 
     public boolean CancelAndShowToast(ResponseEntity response) {
@@ -116,6 +126,20 @@ public abstract class BaseWorker {
             return true;
         }
         return false;
+    }
+
+    public boolean CancelAndShowToast(ResponseEntity response, BaseFragment baseFragment) {
+        if (response == null) {
+            Toast.makeText(baseActivity, R.string.toast_loading_error, Toast.LENGTH_SHORT).show();
+            if(baseActivity != null)
+                cancelLoadingBar(baseFragment);
+            return true;
+        }
+        return false;
+    }
+
+    private void cancelLoadingBar(BaseFragment baseFragment) {
+        baseFragment.getLoadingBar().setVisibility(View.GONE);
     }
 
     private void cancelProgressDialog() {

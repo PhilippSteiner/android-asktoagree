@@ -63,7 +63,7 @@ public class LoginWorker extends BaseWorker {
             LoginResponse loginResponse = responseEntity.getBody();
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 Log.d(TAG, "User id: " + loginResponse.getId() + " Status: " + loginResponse.getStatus());
-                issueStatusToast(loginResponse.getStatus());
+                issueToastAndCancelDialog(loginResponse.getStatus());
                 if (loginResponse.getStatus().equals(AppConfig.LOGIN_SUCCESS)) {
                     setSessionCookieFromHeader(responseEntity.getHeaders().get(AppConfig.RESPONSE_SESSION_COOKIE));
                     Intent intent = new Intent(baseActivity.getApplicationContext(), MainActivity.class);

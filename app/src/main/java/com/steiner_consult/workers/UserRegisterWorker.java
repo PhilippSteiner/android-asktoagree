@@ -1,11 +1,9 @@
 package com.steiner_consult.workers;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.steiner_consult.asktoagree.BaseActivity;
-import com.steiner_consult.asktoagree.MainActivity;
 import com.steiner_consult.models.requests.RegisterRequest;
 import com.steiner_consult.models.responses.RegisterResponse;
 import com.steiner_consult.utilities.AppConfig;
@@ -48,8 +46,6 @@ public class UserRegisterWorker extends BaseWorker {
             final String url = NetworkURL.REGISTER_ACCOUNT.getUrl();
             Log.d(TAG, "PostRequest to: " + url);
             return getRestTemplate().exchange(url, HttpMethod.POST, getRequestEntity(registerRequest), RegisterResponse.class);
-
-
         }
 
         @Override
@@ -59,7 +55,7 @@ public class UserRegisterWorker extends BaseWorker {
             RegisterResponse registerResponse = responseEntity.getBody();
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 Log.d(TAG, "User id: " + registerResponse.getId() + " Status: " + registerResponse.getStatus() + "Created: " + registerResponse.getCreationDate().toString());
-                issueStatusToast(registerResponse.getStatus());
+                issueToastAndCancelDialog(registerResponse.getStatus());
                 if (registerResponse.getStatus().equals(AppConfig.LOGIN_SUCCESS)) {
                     //TODO: success
                 }

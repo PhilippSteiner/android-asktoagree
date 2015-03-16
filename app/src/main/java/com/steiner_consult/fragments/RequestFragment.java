@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.steiner_consult.asktoagree.BaseActivity;
 import com.steiner_consult.asktoagree.R;
@@ -35,6 +36,7 @@ public class RequestFragment extends BaseFragment implements FriendFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_layout_invite_request, container, false);
         listView = (ListView) rootView.findViewById(R.id.listview);
+        progressBar = (ProgressBar) rootView.findViewById(R.id.progressbar);
         friendsWorker = new FriendsWorker(this);
         friendsWorker.loadRequests();
         return rootView;

@@ -37,6 +37,7 @@ public class FriendsPagerFragment extends BaseFragment {
         friendsPagerAdapter = new FriendsPagerAdapter(this, tabsList);
         viewPager.setAdapter(friendsPagerAdapter);
         slidingTabLayout = (SlidingTabLayout) rootView.findViewById(R.id.sliding_tabs);
+        slidingTabLayout.setHorizontalScrollBarEnabled(true);
         slidingTabLayout.setViewPager(viewPager);
 
         return rootView;

@@ -1,14 +1,13 @@
 package com.steiner_consult.fragments;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.ContentLoadingProgressBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.steiner_consult.asktoagree.BaseActivity;
 import com.steiner_consult.asktoagree.R;
@@ -27,7 +26,6 @@ public class InviteFragment extends BaseFragment implements FriendFragment {
     private ArrayList<AppUser> appUsers;
     private UserListAdapter userListAdapter;
     private FriendsWorker friendsWorker;
-    private ContentLoadingProgressBar contentLoadingProgressBar;
 
     public static InviteFragment newInstance() {
         return new InviteFragment();
@@ -36,15 +34,10 @@ public class InviteFragment extends BaseFragment implements FriendFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_layout_invite, container, false);
-
         listView = (ListView) rootView.findViewById(R.id.listview);
-        contentLoadingProgressBar = (ContentLoadingProgressBar) rootView.findViewById(R.id.content_bar);
-
+        progressBar= (ProgressBar) rootView.findViewById(R.id.progressbar);
         friendsWorker = new FriendsWorker(this);
         friendsWorker.loadUsers();
-
-
-
         return rootView;
     }
 
@@ -59,10 +52,6 @@ public class InviteFragment extends BaseFragment implements FriendFragment {
 
     private InviteFragment getFragment() {
         return this;
-    }
-
-    public ContentLoadingProgressBar getLoadingBar() {
-        return contentLoadingProgressBar;
     }
 
     @Override
