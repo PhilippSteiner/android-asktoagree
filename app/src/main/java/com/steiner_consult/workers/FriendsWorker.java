@@ -47,6 +47,10 @@ public class FriendsWorker extends BaseWorker {
         new GetFriendsAsyncTask().execute();
     }
 
+    public void loadFriendsToSharePrayer() {
+        new GetFriendsToSharePrayerAsyncTask().execute();
+    }
+
     public void loadRequests() {
         new GetRequestsAsyncTask().execute();
     }
@@ -284,6 +288,34 @@ public class FriendsWorker extends BaseWorker {
                 Log.d(TAG, "Unauthorized!");
             }
             issueToastAndCancelDialog(usersResponse.getStatus(), (BaseFragment) friendFragment);
+        }
+    }
+
+    private class GetFriendsToSharePrayerAsyncTask extends AsyncTask<Void, Void, ResponseEntity<UsersResponse>> {
+
+        @Override
+        protected ResponseEntity<UsersResponse> doInBackground(Void... params) {
+            try {
+                final String url = NetworkURL.FRIENDS_LIST.getUrl();
+                return getRestTemplate().exchange(url, HttpMethod.GET, getRequestEntity(null), UsersResponse.class);
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage(), e);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(ResponseEntity<UsersResponse> responseEntity) {
+            if (CancelAndShowToast(responseEntity))
+                return;
+            UsersResponse usersResponse = responseEntity.getBody();
+            if (responseEntity.getStatusCode() == HttpStatus.OK) {
+                if (usersResponse.getStatus().equals(AppConfig.OK)) {
+                    friendFragment.setListAdapterData(usersResponse.getUsers());
+                }
+            } else if (responseEntity.getStatusCode() == HttpStatus.UNAUTHORIZED) {
+                Log.d(TAG, "Unauthorized!");
+            }
         }
     }
 

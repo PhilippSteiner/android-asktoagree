@@ -61,7 +61,6 @@ public class MyPrayersWorker extends BaseWorker {
                 Log.d(TAG, " Status: " + prayersResponse.getStatus());
                 issueToastAndCancelDialog(prayersResponse.getStatus());
                 if (prayersResponse.getStatus().equals(AppConfig.OK)) {
-                    if (prayersResponse.getPrayers().length > 0)
                     myPrayerPagerFragment.setData(prayersResponse.getPrayers());
                 }
             } else if (responseEntity.getStatusCode() == HttpStatus.UNAUTHORIZED) {

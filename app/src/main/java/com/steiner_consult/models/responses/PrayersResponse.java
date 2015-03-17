@@ -9,13 +9,13 @@ import java.util.ArrayList;
  */
 public class PrayersResponse extends BaseResponse {
 
-    private Prayer[] prayers = new Prayer[] {};
+    private ArrayList<Prayer> prayers = new ArrayList<>();
 
-    public Prayer[] getPrayers() {
+    public ArrayList<Prayer> getPrayers() {
         return prayers;
     }
 
-    public void setPrayers(Prayer[] prayers) {
+    public void setPrayers(ArrayList<Prayer> prayers) {
         this.prayers = prayers;
     }
 }

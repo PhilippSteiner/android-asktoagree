@@ -38,6 +38,7 @@
     <string name="login_edittext_hint_lastname">Lastname</string>
     <string name="login_edittext_hint_password">Password</string>
     <string name="login_edittext_hint_username">Username</string>
+
     <!--Forgot Password-->
     <string name="forgotpassword_button">Restore Password</string>
     <string name="forgotpassword_text">Please enter your password here and we will restore your password:</string>
@@ -45,7 +46,13 @@
     <!--MyPrayer-->
     <string name="myprayer_create_hint_title">Title</string>
     <string name="myprayer_create_hint_text">Prayer</string>
+    <string name="myprayer_create_heading_share">Share your Prayer</string>
+    <string name="myprayer_create_checkbox_privacy">Public</string>
     <string name="myprayer_create_button_text">Create Prayer</string>
+    <string name="myprayer_empty_prayers">You don\'t have any Prayers yet</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="dialog_share_title">Share with Friends</string>
 
     <!--Toasts-->
     <string name="toast_wrong_password">Wrong password, please try again!</string>

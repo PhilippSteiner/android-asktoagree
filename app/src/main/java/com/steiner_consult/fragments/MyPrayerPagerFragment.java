@@ -1,9 +1,8 @@
 package com.steiner_consult.fragments;
 
-import android.content.Context;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,7 +28,7 @@ import java.util.ArrayList;
 public class MyPrayerPagerFragment extends BaseFragment {
 
     private ListView listView;
-    private Prayer[] prayers;
+    private ArrayList<Prayer> prayers;
     private MyPrayersListAdapter myPrayersListAdapter;
     private MyPrayersWorker myPrayersWorker;
 
@@ -74,7 +73,7 @@ public class MyPrayerPagerFragment extends BaseFragment {
                 .commit();
     }
 
-    public void setData(Prayer[] prayers) {
+    public void setData(ArrayList<Prayer> prayers) {
         this.prayers = prayers;
         myPrayersListAdapter = new MyPrayersListAdapter((BaseActivity) getActivity());
         listView.setAdapter(myPrayersListAdapter);
@@ -96,7 +95,7 @@ public class MyPrayerPagerFragment extends BaseFragment {
             } else {
                 wrapper = (MyPrayerWrapper) convertView.getTag();
             }
-            wrapper.setData(prayers[position]);
+            wrapper.setData(prayers.get(position));
             return convertView;
         }
     }

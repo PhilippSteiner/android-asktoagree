@@ -62,7 +62,6 @@ public class CreatePrayerWorker extends BaseWorker {
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 Log.d(TAG, " Status: " + baseResponse.getStatus());
                 issueToastAndCancelDialog(baseResponse.getStatus());
-                //setSessionCookieFromHeader(responseEntity.getHeaders().get(AppConfig.RESPONSE_SESSION_COOKIE));
                 if (baseResponse.getStatus().equals(AppConfig.OK)) {
                     //TODO: Handle Success
 

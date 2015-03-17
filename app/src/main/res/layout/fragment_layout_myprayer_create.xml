@@ -7,6 +7,13 @@
     android:layout_marginTop="@dimen/activity_horizontal_margin"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/myprayer_empty_prayers"
+        android:visibility="gone" />
+
     <EditText
         android:id="@+id/myprayer_title"
         android:layout_width="match_parent"
@@ -21,7 +28,21 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:hint="@string/myprayer_create_hint_text"
-        android:inputType="textMultiLine"/>
+        android:inputType="textMultiLine" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:text="@string/myprayer_create_heading_share" />
+
+    <CheckBox
+        android:id="@+id/privacy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:checked="true"
+        android:text="@string/myprayer_create_checkbox_privacy" />
 
     <Button
         android:id="@+id/myprayer_button_create"
@@ -30,6 +51,6 @@
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:background="@color/background_button"
         android:text="@string/myprayer_create_button_text"
-        android:textColor="@android:color/white"/>
+        android:textColor="@android:color/white" />
 
 </LinearLayout>
