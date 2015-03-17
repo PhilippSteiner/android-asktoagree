@@ -38,7 +38,7 @@ public class FriendsPagerFragment extends BaseFragment {
         viewPager.setAdapter(friendsPagerAdapter);
         pagerSlidingTabStrip = (PagerSlidingTabStrip) rootView.findViewById(R.id.pageslider);
         pagerSlidingTabStrip.setViewPager(viewPager);
-        pagerSlidingTabStrip.setIndicatorColor(getResources().getColor(R.color.background_green));
+        pagerSlidingTabStrip.setIndicatorColor(getResources().getColor(R.color.primary));
         return rootView;
     }
 

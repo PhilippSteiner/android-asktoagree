@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AskToAgree">
         <!-- Customize your theme here. -->
     </style>
 
@@ -10,7 +10,7 @@
     </style>
 
     <style name="Buttons">
-        <item name="android:background">@color/background_button</item>
+        <item name="android:background">@color/primary</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 

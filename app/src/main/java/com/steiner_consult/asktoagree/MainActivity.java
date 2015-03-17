@@ -1,10 +1,13 @@
 package com.steiner_consult.asktoagree;
 
 import android.content.res.Configuration;
-import android.support.v7.app.ActionBarActivity;
+
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+
 
 
 public class MainActivity extends BaseActivity {
@@ -16,10 +19,14 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+/*
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        sidebarDrawer = new SidebarDrawer(this);
+        */
+        sidebarDrawer = new SidebarDrawer(this, toolbar);
         sidebarDrawer.initializeSidebarDrawer();
 
     }
@@ -66,5 +73,14 @@ public class MainActivity extends BaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(sidebarDrawer.getDrawerLayout().isDrawerOpen(Gravity.START | Gravity.LEFT)){
+            sidebarDrawer.getDrawerLayout().closeDrawers();
+            return;
+        }
+        super.onBackPressed();
     }
 }

@@ -1,22 +1,19 @@
 package com.steiner_consult.asktoagree;
 
-import android.support.v4.app.ActionBarDrawerToggle;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.steiner_consult.adapters.SidebarAdapter;
-import com.steiner_consult.fragments.FriendsFragment;
 import com.steiner_consult.fragments.FriendsPagerFragment;
-import com.steiner_consult.fragments.InviteFragment;
 import com.steiner_consult.fragments.MyPrayerPagerFragment;
-import com.steiner_consult.fragments.RequestFragment;
-import com.steiner_consult.fragments.RespondFragment;
-import com.steiner_consult.interfaces.FriendFragment;
+
 import com.steiner_consult.models.SidebarItem;
 
 import java.util.ArrayList;
@@ -32,46 +29,31 @@ public class SidebarDrawer {
     private ListView drawerList;
     private SidebarAdapter sidebarAdapter;
     private ActionBarDrawerToggle drawerToggle;
+    private Toolbar toolbar;
 
 
 
-    public SidebarDrawer(BaseActivity baseActivity) {
+    public SidebarDrawer(BaseActivity baseActivity, Toolbar toolbar) {
         this.baseActivity = baseActivity;
+        this.toolbar = toolbar;
     }
 
     public void initializeSidebarDrawer() {
         drawerLayout = (DrawerLayout) baseActivity.findViewById(R.id.drawer_layout);
+        drawerToggle = new ActionBarDrawerToggle(baseActivity, drawerLayout, toolbar, R.string.app_name, R.string.app_name);
+        drawerLayout.setDrawerListener(drawerToggle);
         drawerList = (ListView) baseActivity.findViewById(R.id.left_drawer);
         sidebarAdapter = new SidebarAdapter(baseActivity, getSidebarItemList());
         drawerList.setAdapter(sidebarAdapter);
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
-        //drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        drawerToggle = new ActionBarDrawerToggle(
-                baseActivity,          /* host Activity */
-                drawerLayout,         /* DrawerLayout object */
-                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
-                R.string.drawer_open,  /* "open drawer" description for accessibility */
-                R.string.drawer_close  /* "close drawer" description for accessibility */
-        ) {
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
 
-            }
-
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-
-            }
-        };
-
-        drawerLayout.setDrawerListener(drawerToggle);
     }
 
     private List<SidebarItem> getSidebarItemList() {
         List<SidebarItem> sidebarItemList = new ArrayList<>();
         sidebarItemList.add(new SidebarItem("Top Prayers", R.drawable.ic_drawer_top));
         sidebarItemList.add(new SidebarItem("My Prayers", R.drawable.ic_drawer_my));
-        sidebarItemList.add(new SidebarItem("FriendsPager", R.drawable.ic_drawer_invite));
+        sidebarItemList.add(new SidebarItem("Brothers and Sisters", R.drawable.ic_drawer_invite));
         return sidebarItemList;
     }
 

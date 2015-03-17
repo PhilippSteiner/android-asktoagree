@@ -1,20 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!-- the theme applied to the application or activity -->
+
+    <style name="Theme.AskToAgree" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="colorPrimary">@color/primary</item>
+
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+
+        <item name="colorAccent">@color/accent</item>
+
+        <item name="actionMenuTextColor">@android:color/white</item>
+
+
+    </style>
+
+
+    <!-- the theme applied to the application or activity --><!--
 <style name="AskToAgreeActionBarTheme"
     parent="@style/Theme.AppCompat.Light.DarkActionBar">
     <item name="android:actionBarStyle">@style/AskToAgreeActionBar</item>
 
-    <!-- Support library compatibility -->
+
+    <!-
     <item name="actionBarStyle">@style/AskToAgreeActionBar</item>
 </style>
 
-<!-- ActionBar styles -->
+<!- ActionBar styles --><!--
 <style name="AskToAgreeActionBar"
     parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
     <item name="android:background">@color/background_actionbar</item>
 
-    <!-- Support library compatibility -->
+    <!- Support library compatibility --><!--
     <item name="background">@color/background_actionbar</item>
-</style>
+</style>-->
+
+
 </resources>

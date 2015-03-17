@@ -16,5 +16,12 @@
         android:textSize="16sp"
         android:text="Title"/>
 
+    <TextView
+        android:id="@+id/created"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="joined"/>
+
 
 </RelativeLayout>
