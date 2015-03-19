@@ -10,6 +10,8 @@ public enum NetworkURL {
     LOGOUT("account/", "logout/", "Logout the AppUser"),
     PRAYER_CREATE("prayer/", "create/", "Create a Prayer"),
     PRAYER_LIST("prayer/", "prayers/", "Get Prayers by Creator"),
+    PRAYER_DELETE("prayer/", "delete/", "Delete Prayer"),
+    PRAYER_UPDATE("prayer/", "update/", "Update Prayer" ),
     USER_LIST("friend/", "users/", "Get all other Users"),
     FRIEND_INVITE("friend/", "invite/", "Invite a User"),
     FRIEND_REQUEST("friend/", "requests/", "Get the users requests"),

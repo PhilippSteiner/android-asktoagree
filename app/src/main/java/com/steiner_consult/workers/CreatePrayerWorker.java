@@ -1,14 +1,11 @@
 package com.steiner_consult.workers;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.steiner_consult.asktoagree.BaseActivity;
-import com.steiner_consult.asktoagree.MainActivity;
 import com.steiner_consult.models.Prayer;
 import com.steiner_consult.models.responses.BaseResponse;
-import com.steiner_consult.models.responses.LoginResponse;
 import com.steiner_consult.utilities.AppConfig;
 import com.steiner_consult.utilities.NetworkURL;
 
@@ -32,7 +29,6 @@ public class CreatePrayerWorker extends BaseWorker {
         this.prayer = prayer;
         new CreatePrayerAsyncTask().execute();
     }
-
 
     private class CreatePrayerAsyncTask extends AsyncTask<Void, Void, ResponseEntity<BaseResponse>> {
 

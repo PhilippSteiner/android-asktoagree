@@ -28,4 +28,5 @@ public class AppConfig {
     public static final String WRONG_PASSWORD = "wrong_password";
     public static final String ACCOUNT_CREATED = "account_created";
     public static final String LOGIN_SUCCESS = "login_success";
+    public static final String DELETED = "deleted";
 }

@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import com.steiner_consult.adapters.SidebarAdapter;
 import com.steiner_consult.fragments.FriendsPagerFragment;
+import com.steiner_consult.fragments.HomeFragment;
 import com.steiner_consult.fragments.MyPrayerPagerFragment;
 
 import com.steiner_consult.models.SidebarItem;
@@ -54,6 +55,7 @@ public class SidebarDrawer {
         sidebarItemList.add(new SidebarItem("Top Prayers", R.drawable.ic_drawer_top));
         sidebarItemList.add(new SidebarItem("My Prayers", R.drawable.ic_drawer_my));
         sidebarItemList.add(new SidebarItem("Brothers and Sisters", R.drawable.ic_drawer_invite));
+        sidebarItemList.add(new SidebarItem("Home", R.drawable.ic_drawer_top));
         return sidebarItemList;
     }
 
@@ -74,6 +76,8 @@ public class SidebarDrawer {
             case 1: fragment = MyPrayerPagerFragment.newInstance();
                 break;
             case 2: fragment = FriendsPagerFragment.newInstance();
+                break;
+            case 3: fragment = HomeFragment.newInstance();
                 break;
             default: fragment = MyPrayerPagerFragment.newInstance();
                 break;

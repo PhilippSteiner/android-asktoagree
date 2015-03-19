@@ -1,5 +1,6 @@
 package com.steiner_consult.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -11,11 +12,14 @@ public class Prayer {
     private String title;
     private String text;
     private Date creationDate;
+    private Date updateDate;
     private boolean status;
     private String testimony;
     private long creator;
     private boolean agreed;
     private boolean privacy;
+    private ArrayList<AppUser> sharedwith = new ArrayList<>();
+    private ArrayList<AppUser> agreedwith = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -65,6 +69,14 @@ public class Prayer {
         this.testimony = testimony;
     }
 
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
     public long getCreator() {
         return creator;
     }
@@ -87,5 +99,21 @@ public class Prayer {
 
     public void setPrivacy(boolean privacy) {
         this.privacy = privacy;
+    }
+
+    public ArrayList<AppUser> getSharedwith() {
+        return sharedwith;
+    }
+
+    public void setSharedwith(ArrayList<AppUser> sharedwith) {
+        this.sharedwith = sharedwith;
+    }
+
+    public ArrayList<AppUser> getAgreedwith() {
+        return agreedwith;
+    }
+
+    public void setAgreedwith(ArrayList<AppUser> agreedwith) {
+        this.agreedwith = agreedwith;
     }
 }

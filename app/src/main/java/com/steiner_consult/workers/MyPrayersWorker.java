@@ -6,6 +6,7 @@ import android.util.Log;
 import com.steiner_consult.asktoagree.BaseActivity;
 import com.steiner_consult.fragments.MyPrayerPagerFragment;
 import com.steiner_consult.models.Prayer;
+import com.steiner_consult.models.responses.BaseResponse;
 import com.steiner_consult.models.responses.PrayersResponse;
 import com.steiner_consult.utilities.AppConfig;
 import com.steiner_consult.utilities.NetworkURL;
@@ -21,6 +22,7 @@ public class MyPrayersWorker extends BaseWorker {
 
     private final String TAG = this.getClass().getName();
     private MyPrayerPagerFragment myPrayerPagerFragment;
+    private Prayer deletePrayer;
 
     public MyPrayersWorker(MyPrayerPagerFragment myPrayerPagerFragment) {
         super((BaseActivity) myPrayerPagerFragment.getActivity());
@@ -29,6 +31,11 @@ public class MyPrayersWorker extends BaseWorker {
 
     public void loadPrayers() {
         new MyPrayersAsyncTask().execute();
+    }
+
+    public void deletePrayer(Prayer prayer) {
+        deletePrayer = prayer;
+        new DeletePrayerAsyncTask().execute();
     }
 
 
@@ -65,9 +72,43 @@ public class MyPrayersWorker extends BaseWorker {
                 }
             } else if (responseEntity.getStatusCode() == HttpStatus.UNAUTHORIZED) {
                 Log.d(TAG, "Unauthorized!");
-
             }
+        }
+    }
 
+    private class DeletePrayerAsyncTask extends AsyncTask<Void, Void, ResponseEntity<BaseResponse>> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            baseActivity.getProgressDialog().show();
+        }
+
+        @Override
+        protected ResponseEntity<BaseResponse> doInBackground(Void... params) {
+            try {
+                final String url = NetworkURL.PRAYER_DELETE.getUrl();
+                Log.d(TAG, "PostRequest to: " + url);
+                return getRestTemplate().exchange(url, HttpMethod.POST, getRequestEntity(deletePrayer), BaseResponse.class);
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage(), e);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(ResponseEntity<BaseResponse> responseEntity) {
+            if (CancelAndShowToast(responseEntity))
+                return;
+            BaseResponse baseResponse = responseEntity.getBody();
+            if (responseEntity.getStatusCode() == HttpStatus.OK) {
+                Log.d(TAG, " Status: " + baseResponse.getStatus());
+                issueToastAndCancelDialog(baseResponse.getStatus());
+                if (baseResponse.getStatus().equals(AppConfig.DELETED))
+                    myPrayerPagerFragment.removePrayerFromAdapter(deletePrayer);
+            } else if (responseEntity.getStatusCode() == HttpStatus.UNAUTHORIZED) {
+                Log.d(TAG, "Unauthorized!");
+            }
         }
     }
 }

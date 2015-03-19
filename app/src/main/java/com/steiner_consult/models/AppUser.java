@@ -1,5 +1,7 @@
 package com.steiner_consult.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -9,7 +11,10 @@ import java.util.Date;
 public class AppUser {
 
     private Long id;
+    @JsonIgnore
     private String authToken;
+    @JsonIgnore
+    private boolean isPrayerSharedWith;
     private String email;
     private String password;
     private Date creationDate;
@@ -20,6 +25,9 @@ public class AppUser {
     private ArrayList<Prayer> prayers = new ArrayList<>();
     private ArrayList<AppUser> friendRequest = new ArrayList<>();
     private ArrayList<AppUser> friendResponse = new ArrayList<>();
+    private ArrayList<Prayer> sharedprayers = new ArrayList<>();
+    private ArrayList<Prayer> agreedprayers = new ArrayList<>();
+
 
     public Long getId() {
         return id;
@@ -115,5 +123,29 @@ public class AppUser {
 
     public void setFriendResponse(ArrayList<AppUser> friendResponse) {
         this.friendResponse = friendResponse;
+    }
+
+    public ArrayList<Prayer> getSharedprayers() {
+        return sharedprayers;
+    }
+
+    public void setSharedprayers(ArrayList<Prayer> sharedprayers) {
+        this.sharedprayers = sharedprayers;
+    }
+
+    public ArrayList<Prayer> getAgreedprayers() {
+        return agreedprayers;
+    }
+
+    public void setAgreedprayers(ArrayList<Prayer> agreedprayers) {
+        this.agreedprayers = agreedprayers;
+    }
+    @JsonIgnore
+    public boolean isPrayerSharedWith() {
+        return isPrayerSharedWith;
+    }
+
+    public void setPrayerSharedWith(boolean isPrayerSharedWith) {
+        this.isPrayerSharedWith = isPrayerSharedWith;
     }
 }

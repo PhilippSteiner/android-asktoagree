@@ -40,16 +40,10 @@ public class MyPrayerPagerFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_layout_myprayerpager, container, false);
         setHasOptionsMenu(true);
-
         listView = (ListView) rootView.findViewById(R.id.listview);
         myPrayersWorker = new MyPrayersWorker(this);
-        return rootView;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
         myPrayersWorker.loadPrayers();
+        return rootView;
     }
 
     @Override
@@ -73,6 +67,19 @@ public class MyPrayerPagerFragment extends BaseFragment {
                 .commit();
     }
 
+    public void deletePrayer(Prayer prayer) {
+        myPrayersWorker.deletePrayer(prayer);
+    }
+
+    public void removePrayerFromAdapter(Prayer prayer) {
+        myPrayersListAdapter.remove(prayer);
+        myPrayersListAdapter.notifyDataSetChanged();
+    }
+
+    private MyPrayerPagerFragment getFragment() {
+        return this;
+    }
+
     public void setData(ArrayList<Prayer> prayers) {
         this.prayers = prayers;
         myPrayersListAdapter = new MyPrayersListAdapter((BaseActivity) getActivity());
@@ -90,7 +97,7 @@ public class MyPrayerPagerFragment extends BaseFragment {
             MyPrayerWrapper wrapper;
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_my_prayers, parent, false);
-                wrapper = new MyPrayerWrapper(convertView, (BaseActivity) getActivity());
+                wrapper = new MyPrayerWrapper(convertView, getFragment());
                 convertView.setTag(wrapper);
             } else {
                 wrapper = (MyPrayerWrapper) convertView.getTag();

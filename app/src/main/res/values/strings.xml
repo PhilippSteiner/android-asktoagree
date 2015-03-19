@@ -53,6 +53,10 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="dialog_share_title">Share with Friends</string>
+    <string name="privacy_public">public</string>
+    <string name="delete_prayer">Delete prayer?</string>
+    <string name="yes">Yes</string>
+    <string name="myprayer_view_heading_share">Shared with:</string>
 
     <!--Toasts-->
     <string name="toast_wrong_password">Wrong password, please try again!</string>

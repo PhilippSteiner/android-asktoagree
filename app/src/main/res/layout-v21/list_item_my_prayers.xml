@@ -5,7 +5,8 @@
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:orientation="vertical"
     android:layout_margin="5dp"
-    android:padding="5dp">
+    android:padding="5dp"
+    android:longClickable="true">
 
     <TextView
         android:id="@+id/title"
@@ -29,6 +30,13 @@
         android:layout_height="wrap_content"
         android:padding="2dp"
         android:text="created"/>
+
+    <TextView
+        android:id="@+id/shared"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/privacy_public"/>
 
     <TextView
         android:id="@+id/agreed"
