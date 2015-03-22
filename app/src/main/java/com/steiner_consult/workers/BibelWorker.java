@@ -52,11 +52,17 @@ public class BibelWorker extends BaseWorker {
             String completeHTML = responseEntity.getBody();
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 Log.d(TAG, "HTML: " + completeHTML);
-                homeFragment.setText(completeHTML);
+                homeFragment.setText(removeLinks(completeHTML));
             } else if (responseEntity.getStatusCode() == HttpStatus.UNAUTHORIZED) {
                 Log.d(TAG, "Unauthorized!");
             }
             baseActivity.getProgressDialog().cancel();
+        }
+
+        private String removeLinks(String text) {
+            String links = text.substring(text.indexOf("<a"), text.lastIndexOf("</a>") + 4);
+            Log.d(TAG, links);
+            return text.replace(links, "");
         }
     }
 

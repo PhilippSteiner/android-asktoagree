@@ -15,6 +15,7 @@ import com.steiner_consult.fragments.FriendsPagerFragment;
 import com.steiner_consult.fragments.HomeFragment;
 import com.steiner_consult.fragments.MyPrayerPagerFragment;
 
+import com.steiner_consult.fragments.SharedPrayersFragment;
 import com.steiner_consult.models.SidebarItem;
 
 import java.util.ArrayList;
@@ -56,6 +57,7 @@ public class SidebarDrawer {
         sidebarItemList.add(new SidebarItem("My Prayers", R.drawable.ic_drawer_my));
         sidebarItemList.add(new SidebarItem("Brothers and Sisters", R.drawable.ic_drawer_invite));
         sidebarItemList.add(new SidebarItem("Home", R.drawable.ic_drawer_top));
+        sidebarItemList.add(new SidebarItem("My Shared Prayers", R.drawable.ic_drawer_invite));
         return sidebarItemList;
     }
 
@@ -78,6 +80,8 @@ public class SidebarDrawer {
             case 2: fragment = FriendsPagerFragment.newInstance();
                 break;
             case 3: fragment = HomeFragment.newInstance();
+                break;
+            case 4: fragment = SharedPrayersFragment.newInstance();
                 break;
             default: fragment = MyPrayerPagerFragment.newInstance();
                 break;

@@ -12,6 +12,7 @@ public enum NetworkURL {
     PRAYER_LIST("prayer/", "prayers/", "Get Prayers by Creator"),
     PRAYER_DELETE("prayer/", "delete/", "Delete Prayer"),
     PRAYER_UPDATE("prayer/", "update/", "Update Prayer" ),
+    PRAYER_SHARED_LIST("prayer/", "shared/", "Get all shared prayers"),
     USER_LIST("friend/", "users/", "Get all other Users"),
     FRIEND_INVITE("friend/", "invite/", "Invite a User"),
     FRIEND_REQUEST("friend/", "requests/", "Get the users requests"),

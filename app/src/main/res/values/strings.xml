@@ -76,4 +76,10 @@
     <string name="button_accepted">accepted</string>
     <string name="button_search">search</string>
 
+    <!--Home-->
+    <string name="word_title">The Word</string>
+
+    <!--Shared Prayers-->
+    <string name="agree">agree</string>
+
 </resources>

@@ -15,7 +15,7 @@ public class Prayer {
     private Date updateDate;
     private boolean status;
     private String testimony;
-    private long creator;
+    private AppUser creator;
     private boolean agreed;
     private boolean privacy;
     private ArrayList<AppUser> sharedwith = new ArrayList<>();
@@ -77,14 +77,6 @@ public class Prayer {
         this.updateDate = updateDate;
     }
 
-    public long getCreator() {
-        return creator;
-    }
-
-    public void setCreator(long creator) {
-        this.creator = creator;
-    }
-
     public boolean isAgreed() {
         return agreed;
     }
@@ -115,5 +107,13 @@ public class Prayer {
 
     public void setAgreedwith(ArrayList<AppUser> agreedwith) {
         this.agreedwith = agreedwith;
+    }
+
+    public AppUser getCreator() {
+        return creator;
+    }
+
+    public void setCreator(AppUser creator) {
+        this.creator = creator;
     }
 }

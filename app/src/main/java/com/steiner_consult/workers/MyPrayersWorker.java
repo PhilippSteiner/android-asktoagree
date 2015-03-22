@@ -38,7 +38,6 @@ public class MyPrayersWorker extends BaseWorker {
         new DeletePrayerAsyncTask().execute();
     }
 
-
     private class MyPrayersAsyncTask extends AsyncTask<Void, Void, ResponseEntity<PrayersResponse>> {
 
         @Override
@@ -66,13 +65,14 @@ public class MyPrayersWorker extends BaseWorker {
             PrayersResponse prayersResponse = responseEntity.getBody();
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 Log.d(TAG, " Status: " + prayersResponse.getStatus());
-                issueToastAndCancelDialog(prayersResponse.getStatus());
+
                 if (prayersResponse.getStatus().equals(AppConfig.OK)) {
                     myPrayerPagerFragment.setData(prayersResponse.getPrayers());
                 }
             } else if (responseEntity.getStatusCode() == HttpStatus.UNAUTHORIZED) {
                 Log.d(TAG, "Unauthorized!");
             }
+            issueToastAndCancelDialog(prayersResponse.getStatus());
         }
     }
 
