@@ -5,6 +5,8 @@ import android.util.Log;
 
 import com.steiner_consult.asktoagree.BaseActivity;
 import com.steiner_consult.fragments.SharedPrayersFragment;
+import com.steiner_consult.models.Prayer;
+import com.steiner_consult.models.responses.BaseResponse;
 import com.steiner_consult.models.responses.PrayersResponse;
 import com.steiner_consult.utilities.AppConfig;
 import com.steiner_consult.utilities.NetworkURL;
@@ -19,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 public class SharedPrayerWorker extends BaseWorker {
 
     private SharedPrayersFragment sharedPrayersFragment;
+    private Prayer sharePrayer;
 
     public SharedPrayerWorker(SharedPrayersFragment sharedPrayersFragment) {
         super((BaseActivity) sharedPrayersFragment.getActivity());
@@ -27,6 +30,11 @@ public class SharedPrayerWorker extends BaseWorker {
 
     public void loadSharedPrayers() {
         new SharedPrayersAsyncTask().execute();
+    }
+
+    public void agreeToPrayer(Prayer prayer) {
+        this.sharePrayer = prayer;
+        new AgreePrayerAsyncTask().execute();
     }
 
     private class SharedPrayersAsyncTask extends AsyncTask<Void, Void, ResponseEntity<PrayersResponse>> {
@@ -65,4 +73,37 @@ public class SharedPrayerWorker extends BaseWorker {
             issueToastAndCancelDialog(prayersResponse.getStatus());
         }
     }
+
+    private class AgreePrayerAsyncTask extends AsyncTask<Void, Void, ResponseEntity<BaseResponse>> {
+
+        @Override
+        protected ResponseEntity<BaseResponse> doInBackground(Void... params) {
+            try {
+                final String url = NetworkURL.PRAYER_AGREE.getUrl();
+                Log.d(TAG, "PostRequest to: " + url);
+                return getRestTemplate().exchange(url, HttpMethod.POST, getRequestEntity(sharePrayer), BaseResponse.class);
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage(), e);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(ResponseEntity<BaseResponse> responseEntity) {
+            if (CancelAndShowToast(responseEntity))
+                return;
+            BaseResponse baseResponse = responseEntity.getBody();
+            if (responseEntity.getStatusCode() == HttpStatus.OK) {
+                Log.d(TAG, " Status: " + baseResponse.getStatus());
+                if (baseResponse.getStatus().equals(AppConfig.OK)) {
+                    //TODO: Handle Success
+                }
+            } else if (responseEntity.getStatusCode() == HttpStatus.UNAUTHORIZED) {
+                Log.d(TAG, "Unauthorized!");
+            }
+            issueToastAndCancelDialog(baseResponse.getStatus());
+        }
+    }
+
+
 }

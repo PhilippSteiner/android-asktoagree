@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.facebook.appevents.AppEventsLogger;
 import com.steiner_consult.utilities.AppConfig;
 
 /**
@@ -23,6 +24,18 @@ public class LauncherActivity extends Activity {
             intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AppEventsLogger.deactivateApp(this);
     }
 
     private boolean isLoggedIn() {

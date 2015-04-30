@@ -1,5 +1,6 @@
 package com.steiner_consult.fragments;
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -14,18 +15,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.facebook.AppEventsLogger;
-import com.facebook.widget.LoginButton;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.facebook.share.model.AppInviteContent;
+import com.facebook.share.widget.AppInviteDialog;
 import com.google.android.gms.common.SignInButton;
 import com.steiner_consult.asktoagree.LoginActivity;
 import com.steiner_consult.asktoagree.R;
-import com.steiner_consult.logins.FacebookClient;
 import com.steiner_consult.logins.GooglePlusClient;
 import com.steiner_consult.models.requests.LoginRequest;
 import com.steiner_consult.utilities.AppConfig;
 import com.steiner_consult.workers.LoginWorker;
 
-import java.util.Arrays;
 
 /**
  * Created by Philipp on 29.01.15.
@@ -35,9 +40,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private LoginActivity loginActivity;
     private GooglePlusClient googlePlusClient;
     private SignInButton googleSignInButton, googleSignOutButton;
-    private FacebookClient facebookClient;
-    private LoginButton facebookLoginButton;
     private EditText email, password;
+    private LoginButton loginButton;
+    private CallbackManager callbackManager;
+    private final String TAG = getClass().getName();
 
     public static LoginFragment newInstance() {
         return new LoginFragment();
@@ -60,14 +66,45 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         forgotpassword.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
         forgotpassword.setOnClickListener(this);
 
+        loginButton = (LoginButton) rootView.findViewById(R.id.facebook_login_button);
+        loginButton.setReadPermissions("user_friends");
+        loginButton.setFragment(this);
+        callbackManager = CallbackManager.Factory.create();
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d(TAG, "Success!");
+
+
+                String appLinkUrl, previewImageUrl;
+
+                appLinkUrl = "https://fb.me/830277370372700";
+                previewImageUrl = "http://en.wikipedia.org/wiki/Smiley#/media/File:Smiley.svg";
+
+                if (AppInviteDialog.canShow()) {
+                    AppInviteContent content = new AppInviteContent.Builder()
+                            .setApplinkUrl(appLinkUrl)
+                            .setPreviewImageUrl(previewImageUrl)
+                            .build();
+                    AppInviteDialog.show(getActivity(), content);
+                }
+
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d(TAG, "Cancel!");
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                Log.d(TAG, "Error " + exception.toString());
+            }
+        });
+
+
 
         /* Register */
-
-        facebookClient = new FacebookClient(getActivity(), savedInstanceState);
-        facebookLoginButton = (LoginButton) rootView.findViewById(R.id.authButton);
-        //facebookLoginButton.setPadding(0, 0, 0, 0);
-        facebookLoginButton.setBackgroundResource(R.drawable.facebook_button_blue);
-        facebookLoginButton.setReadPermissions(Arrays.asList("public_profile"));
 
 
         googlePlusClient = new GooglePlusClient(this);
@@ -91,6 +128,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         googlePlusClient.connect();
@@ -102,35 +145,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         googlePlusClient.disconnect();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        facebookClient.onResume();
-        // Logs 'install' and 'app activate' App Events.
-        AppEventsLogger.activateApp(loginActivity);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        facebookClient.onPause();
-
-        // Logs 'app deactivate' App Event.
-        AppEventsLogger.deactivateApp(loginActivity);
-    }
-
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        facebookClient.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        facebookClient.onDestroy();
-    }
 
     public void updateView(int loginStatus) {
         String buttonText;

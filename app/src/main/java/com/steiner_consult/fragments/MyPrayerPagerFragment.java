@@ -54,17 +54,7 @@ public class MyPrayerPagerFragment extends BaseFragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return OptionsMenuHandler.getInstance().handleClick(this, item);
-    }
-
-
-    @Override
-    public void goToFragment(BaseFragment baseFragment) {
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.content_frame, baseFragment)
-                .addToBackStack(MyPrayerPagerFragment.class.getName())
-                .commit();
+        return OptionsMenuHandler.getInstance().handleClick((BaseActivity) getActivity(), item);
     }
 
     public void deletePrayer(Prayer prayer) {
@@ -84,6 +74,11 @@ public class MyPrayerPagerFragment extends BaseFragment {
         this.prayers = prayers;
         myPrayersListAdapter = new MyPrayersListAdapter((BaseActivity) getActivity());
         listView.setAdapter(myPrayersListAdapter);
+    }
+
+    @Override
+    public void goToFragment(BaseFragment baseFragment) {
+
     }
 
     private class MyPrayersListAdapter extends ArrayAdapter<Prayer> {

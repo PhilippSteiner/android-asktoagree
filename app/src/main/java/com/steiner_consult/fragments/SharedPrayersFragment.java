@@ -24,6 +24,7 @@ public class SharedPrayersFragment extends BaseFragment {
     private ListView listView;
     private ArrayList<Prayer> prayers;
     private SharedPrayersListAdapter sharedPrayersListAdapter;
+    private SharedPrayerWorker sharedPrayerWorker;
 
 
     public static SharedPrayersFragment newInstance() {
@@ -34,7 +35,7 @@ public class SharedPrayersFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_layout_shared, container, false);
         listView = (ListView) rootView.findViewById(R.id.listview);
-        SharedPrayerWorker sharedPrayerWorker = new SharedPrayerWorker(this);
+        sharedPrayerWorker = new SharedPrayerWorker(this);
         sharedPrayerWorker.loadSharedPrayers();
         return rootView;
     }
@@ -44,10 +45,18 @@ public class SharedPrayersFragment extends BaseFragment {
 
     }
 
+    public void agreeToPrayer(Prayer prayer) {
+        sharedPrayerWorker.agreeToPrayer(prayer);
+    }
+
     public void setData(ArrayList<Prayer> prayers) {
         this.prayers = prayers;
         sharedPrayersListAdapter = new SharedPrayersListAdapter((BaseActivity) getActivity());
         listView.setAdapter(sharedPrayersListAdapter);
+    }
+
+    private SharedPrayersFragment getFragment() {
+        return this;
     }
 
     private class SharedPrayersListAdapter extends ArrayAdapter<Prayer> {
@@ -61,7 +70,7 @@ public class SharedPrayersFragment extends BaseFragment {
             SharedPrayerWrapper wrapper;
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_shared_prayer, parent, false);
-                wrapper = new SharedPrayerWrapper(convertView);
+                wrapper = new SharedPrayerWrapper(convertView, getFragment());
                 convertView.setTag(wrapper);
             } else {
                 wrapper = (SharedPrayerWrapper) convertView.getTag();

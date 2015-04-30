@@ -32,6 +32,15 @@
         android:text="created"/>
 
     <TextView
+        android:id="@+id/creator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:padding="2dp"
+        android:text="creator"
+        android:visibility="gone"/>
+
+    <TextView
         android:id="@+id/shared"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

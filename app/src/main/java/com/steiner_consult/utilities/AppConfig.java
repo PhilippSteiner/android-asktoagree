@@ -15,6 +15,10 @@ public class AppConfig {
     public static final String AUTH_TOKEN_HEADER = "X-AUTH-TOKEN";
     public static final String AUTH_TOKEN = "authToken";
 
+    /* Shared Preferences */
+    public static final String PREFS_USERNAME = "username";
+
+
     // Google Plus
     public static final String SERVER_CLIENT_ID = "341778420137-qd3us9pvki35bpu6m3iuvs9v9fo10qe0.apps.googleusercontent.com";
     public static final int LOGGED_OUT = 0;

@@ -6,16 +6,22 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.steiner_consult.adapters.SidebarAdapter;
 import com.steiner_consult.fragments.FriendsPagerFragment;
 import com.steiner_consult.fragments.HomeFragment;
 import com.steiner_consult.fragments.MyPrayerPagerFragment;
 
+import com.steiner_consult.fragments.ProfileFragment;
 import com.steiner_consult.fragments.SharedPrayersFragment;
+import com.steiner_consult.fragments.TopPrayerFragment;
 import com.steiner_consult.models.SidebarItem;
 
 import java.util.ArrayList;
@@ -32,8 +38,7 @@ public class SidebarDrawer {
     private SidebarAdapter sidebarAdapter;
     private ActionBarDrawerToggle drawerToggle;
     private Toolbar toolbar;
-
-
+    private TextView userName;
 
     public SidebarDrawer(BaseActivity baseActivity, Toolbar toolbar) {
         this.baseActivity = baseActivity;
@@ -45,10 +50,14 @@ public class SidebarDrawer {
         drawerToggle = new ActionBarDrawerToggle(baseActivity, drawerLayout, toolbar, R.string.app_name, R.string.app_name);
         drawerLayout.setDrawerListener(drawerToggle);
         drawerList = (ListView) baseActivity.findViewById(R.id.left_drawer);
+        LayoutInflater inflater = baseActivity.getLayoutInflater();
+        ViewGroup header = (ViewGroup)inflater.inflate(R.layout.drawer_header, drawerList, false);
+        drawerList.addHeaderView(header);
         sidebarAdapter = new SidebarAdapter(baseActivity, getSidebarItemList());
         drawerList.setAdapter(sidebarAdapter);
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
-
+        userName = (TextView) header.findViewById(R.id.username);
+        userName.setText(baseActivity.getUserFromPreferences().getUsername());
     }
 
     private List<SidebarItem> getSidebarItemList() {
@@ -69,19 +78,28 @@ public class SidebarDrawer {
     }
 
     private void selectItem(int position) {
-        SidebarItem sidebarItem = sidebarAdapter.getItem(position);
+        Log.d(getClass().getName(), "Sidebar: " + position);
+        if (position > 0) {
+            SidebarItem sidebarItem = sidebarAdapter.getItem(position - 1);
+            setTitle(sidebarItem.getName());
+        } else {
+            setTitle("Profile");
+        }
+
         Fragment fragment;
 
         switch (position) {
-            case 0: fragment = MyPrayerPagerFragment.newInstance();
+            case 0: fragment = ProfileFragment.newInstance();
                 break;
-            case 1: fragment = MyPrayerPagerFragment.newInstance();
+            case 1: fragment = TopPrayerFragment.newInstance();
                 break;
-            case 2: fragment = FriendsPagerFragment.newInstance();
+            case 2: fragment = MyPrayerPagerFragment.newInstance();
                 break;
-            case 3: fragment = HomeFragment.newInstance();
+            case 3: fragment = FriendsPagerFragment.newInstance();
                 break;
-            case 4: fragment = SharedPrayersFragment.newInstance();
+            case 4: fragment = HomeFragment.newInstance();
+                break;
+            case 5: fragment = SharedPrayersFragment.newInstance();
                 break;
             default: fragment = MyPrayerPagerFragment.newInstance();
                 break;
@@ -94,7 +112,7 @@ public class SidebarDrawer {
 
         drawerList.setItemChecked(position, true);
         drawerLayout.closeDrawer(drawerList);
-        setTitle(sidebarItem.getName());
+
     }
 
     private void setTitle(String name) {

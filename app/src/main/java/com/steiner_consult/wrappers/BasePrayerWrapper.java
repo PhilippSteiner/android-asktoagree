@@ -13,6 +13,7 @@ import com.steiner_consult.models.Prayer;
 public abstract class BasePrayerWrapper {
 
     private TextView title, created, creator;
+    protected Prayer prayer;
 
     public BasePrayerWrapper(View row) {
         title = (TextView) row.findViewById(R.id.title);
@@ -21,6 +22,7 @@ public abstract class BasePrayerWrapper {
     }
 
     public void setData(Prayer prayer) {
+        this.prayer = prayer;
         title.setText(prayer.getTitle());
         created.setText(DateUtils.getRelativeTimeSpanString(prayer.getCreationDate().getTime(), System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS));
         creator.setText("by " + prayer.getCreator().getUsername());

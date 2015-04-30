@@ -19,29 +19,27 @@ import java.text.SimpleDateFormat;
 /**
  * Created by Philipp on 07.03.15.
  */
-public class MyPrayerWrapper implements View.OnClickListener {
+public class MyPrayerWrapper extends BasePrayerWrapper implements View.OnClickListener {
 
     private View row;
-    private TextView title, created, shared;
-    private Prayer prayer;
+    private TextView shared, agreed;
     private BaseActivity baseActivity;
     private MyPrayerPagerFragment myPrayerPagerFragment;
 
     public MyPrayerWrapper(View row, MyPrayerPagerFragment myPrayerPagerFragment) {
+        super(row);
         this.row = row;
         this.myPrayerPagerFragment = myPrayerPagerFragment;
         this.baseActivity = (BaseActivity) myPrayerPagerFragment.getActivity();
+        shared = (TextView) row.findViewById(R.id.shared);
+        agreed = (TextView) row.findViewById(R.id.agreed);
     }
 
+    @Override
     public void setData(Prayer prayer) {
-        this.prayer = prayer;
-        title = (TextView) row.findViewById(R.id.title);
-        created = (TextView) row.findViewById(R.id.created);
-        shared = (TextView) row.findViewById(R.id.shared);
-
-        setTitle();
-        setCreated();
+        super.setData(prayer);
         setShared();
+        setAgreed();
         row.setOnClickListener(this);
         row.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -52,19 +50,14 @@ public class MyPrayerWrapper implements View.OnClickListener {
         });
     }
 
-    private void setTitle() {
-        title.setText(prayer.getTitle());
-    }
-
 
     private void setShared() {
         if (!prayer.isPrivacy())
             shared.setText(prayer.getSharedwith().size() + " shares");
-
     }
 
-    private void setCreated() {
-        created.setText(DateUtils.getRelativeTimeSpanString(prayer.getCreationDate().getTime(), System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS));
+    private void setAgreed() {
+        agreed.setText(prayer.getAgreedwith().size() + " agreed");
     }
 
     private AlertDialog createDeleteDialog() {

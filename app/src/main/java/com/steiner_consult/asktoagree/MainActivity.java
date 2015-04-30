@@ -14,6 +14,7 @@ public class MainActivity extends BaseActivity {
 
     private SidebarDrawer sidebarDrawer;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,13 +63,6 @@ public class MainActivity extends BaseActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         if (sidebarDrawer.getDrawerToggle().onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
             return true;
         }
 

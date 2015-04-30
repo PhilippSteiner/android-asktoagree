@@ -1,10 +1,12 @@
 package com.steiner_consult.asktoagree;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.view.MenuItem;
 
 import com.steiner_consult.fragments.BaseFragment;
 import com.steiner_consult.fragments.CreatePrayerFragment;
+import com.steiner_consult.fragments.MyPrayerPagerFragment;
 import com.steiner_consult.workers.LogoutWorker;
 
 /**
@@ -23,24 +25,30 @@ public class OptionsMenuHandler {
         return instance;
     }
 
-    public boolean handleClick(BaseFragment baseFragment, MenuItem item) {
+    public boolean handleClick(BaseActivity baseActivity, MenuItem item) {
 
         switch (item.getItemId()) {
             case R.id.action_create:
-                baseFragment.goToFragment(CreatePrayerFragment.newInstance());
+                goToFragment(baseActivity);
                 return true;
             case R.id.action_settings:
-                Intent intent = new Intent(baseFragment.getActivity().getApplicationContext(), LoginActivity.class);
-                baseFragment.getActivity().startActivity(intent);
+                Intent intent = new Intent(baseActivity.getApplicationContext(), LoginActivity.class);
+                baseActivity.startActivity(intent);
                 return true;
             case R.id.action_logout:
-                LogoutWorker logoutWorker = new LogoutWorker((BaseActivity)baseFragment.getActivity());
+                LogoutWorker logoutWorker = new LogoutWorker(baseActivity);
                 logoutWorker.logoutUser();
                 return true;
             default:
                 return false;
         }
+    }
 
-
+    private void goToFragment(BaseActivity baseActivity) {
+        FragmentManager fragmentManager = baseActivity.getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, CreatePrayerFragment.newInstance())
+                .addToBackStack(MyPrayerPagerFragment.class.getName())
+                .commit();
     }
 }
